@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RGFX Example</title>
+</head>
+
+<body>
+    <h1>Fetch Foo example</h1>
+    <button id="b1">Fetch</button>
+    <p>Data:
+        <span id="o1">*</span>
+    </p>
+
+    <script type="text/javascript" src="../../dist/RGFX.js"></script>
+    <script type="text/javascript">
+
+        const outputElem = document.getElementById('o1');
+
+        b1.addEventListener('click', function() {
+            fetchNode.trigger(); // Trigger the node
+        });
+
+        // Fetch - Task
+        let fetchTask = new RGFX.Task(() => fetch('foo.json'));
+        let fetchNode = new RGFX.Vertex(fetchTask);
+
+        // Fetch response to json - Task
+        let jsonTask = new RGFX.Task(response => response.json());
+        let jsonNode = new RGFX.Vertex(jsonTask);
+
+        // Map - Task
+        let mapTask = new RGFX.Task(data => data * Math.random());
+        let mapNode = new RGFX.Vertex(mapTask);
+
+        // Repeat every 1 s - Task
+        let repeatTask = new RGFX.Task((() => { }));
+        let repeatNode = new RGFX.Vertex(repeatTask, new RGFX.Scheduler(1000));
+
+        // Build the Graph
+        fetchNode.to(jsonNode);
+        jsonNode.to(mapNode);
+        mapNode.to(repeatNode);
+        repeatNode.to(fetchNode);
+
+        // Subscribe the mapNode
+        mapNode.subscribe(promise => promise.then(data => {
+            outputElem.innerText = data.toFixed(2);
+        }));
+
+    </script>
+</body>
+
+</html>

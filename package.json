@@ -1,0 +1,43 @@
+{
+  "name": "regrafx",
+  "version": "1.0.0-alpha.1",
+  "description": "Reactive Graph Flux",
+  "main": "dist/regrafx.js",
+  "module": "src/regrafx.es6.js",
+  "scripts": {
+    "build-all": "rollup -c && rollup -c rollup.config.umd.rgfx.js",
+    "force": "git add . && git commit --amend && git push -f",
+    "lint": "eslint src/**/*.js spec/**/*.js examples/**/*.js --fix",
+    "test": "karma start karma.conf.js",
+    "test-single": "karma start karma.conf.js  --single-run --no-auto-watch",
+    "wp-watch-dev": "webpack --mode='development' --watch",
+    "wp-build-prod": "webpack --mode='production'"
+  },
+  "author": "Luca Polverini",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "eslint": "^5.9.0",
+    "fetch-mock": "^7.2.5",
+    "jasmine-core": "^3.3.0",
+    "karma": "^3.1.1",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^2.0.0",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-webpack": "^3.0.5",
+    "npx": "^10.2.0",
+    "rollup": "^0.67.3",
+    "rollup-plugin-babel": "^4.0.3",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "whatwg-fetch": "^3.0.0"
+  }
+}
