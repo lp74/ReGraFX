@@ -288,9 +288,9 @@ var RGFX = (function (exports) {
 
     _createClass(Task, [{
       key: "execute",
-      value: function execute(input) {
+      value: function execute() {
         try {
-          var res = this._fn(input);
+          var res = this._fn.apply(this, arguments);
 
           return isPromise(res) ? res : Promise.resolve(res);
         } catch (err) {
