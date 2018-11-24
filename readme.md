@@ -4,48 +4,88 @@ The power of Promises, Observers and Graph brought together to build a great dat
 
 ## Why it is called ReGraFX?
 
--   It uses the Observer pattern, that's why it is **Re**.active;
+-   It uses the ```Observer``` pattern, that's why it is **Re**.active;
 -   It builds a Graph of scheduled async-tasks, that's why it is **Gra**.ph;
--   Messages flow in the graph following their behavioural paths, that's why it is a **F**.lu.**X**;
+-   ```Message```s and their  ```Token```s flow in the graph following their behavioural paths, that's why we use the word **F**.lu.**X**;
+
+> We are going to call this kind of architecture **Reactive Graphs** or **RGFX**!
 
 ## Introduction
 
-We can describe an application as a set of decoupled graphs.
+We can describe an application as a set of decoupled graphs that cooperate to achieve a goal.
 Every graph represents a process.
 A process might decompose in many simple tasks.
 
-### The Node
+### The Vertex (aka Node)
 
-Every Node of our graph represents a task (wraps a task).
+Every ```Vertex``` of our graph represents a ```Task``` (it wraps a task).
 A task receives an input and produces an output.
 A task can be successful or not.
 A task can be synchronous or asynchronous; we wrap the output of a synchronous task inside a Promise (resolved of reject).
 
+```js
+const aFunction = x => 2 * x; 
+const vertex = new Vertex(new Task(aFunction));
+```
+
 ### The Edge
 
 Every edge of our graph links two nodes (tasks).
-We deliver the output of a task to another node using notifications that transit along edges.
+We deliver the output of a task to another node using notifications that transit along edges (subscriptions).
 Every node links other nodes with a 1-to-many relation.
 Every linked node observes the outcome of its parent tasks.
 That means that the outputs of a node are Observables and the inputs are Observers.
 
 ### The Promise
 
-The output of a task is wrapped inside promise.
+The output of a task is wrapped inside a promise.
 Every node keeps two collections of observers:
 
--   The first collection subscribe to successful outcome (then),
--   The second collection to failures (catch).
+-   The first collection "subscribes" to successful outcome (then),
+-   The second collection "subscribes" to failures (catch).
+
+> a third, less used (?),  collection "subscribes" to the Promise finally.
+
+```js
+const vertex1 = new Vertex(new Task((x, y, z) => x + y + z));
+const vertex2 = new Vertex(new Task(x => 2 * x));
+const vertex3 = new Vertex(new Task(console.error)));
+const vertex4 = new Vertex(new Task(console.debug));
+
+vertex1.to(vertex2);
+vertex1.err(vertex3);
+vertex1.final(vertex4);
+
+vertex2.subscribe(aFunction);
+
+const token = vertex1.trigger(1, 2, 3);
+
+```
 
 ### The Scheduler
 
 We would like to schedule the execution of a task.
-That means that the node contains a scheduler that executes or delays the task.
+That means that the node contains a ```Scheduler``` that executes or delays the task.
+The Scheduler has the ability to **cancel** the task execution by mean of a token that flows along the graph.
 
 -   The default schedule executes as soon as receiving the input message notification.
 -   The delayed schedule executes after the required time.
 -   The pause schedule pauses until required.
     The listed schedulers are just examples. There can be other schedulers.
+
+```js
+const aFunction = x => 2 * x; 
+const delay = 1000; // milliseconds
+const vertex = new Vertex(new Task(aFunction), new Scheduler(delay));
+```
+
+To cancel:
+
+```js
+const token = vertex.trigger();
+token.cancel();
+```
+
 
 ### Visually
 
@@ -57,7 +97,7 @@ The following image represents a node:
 -   The **eyes** means that the **input** link is an **observer** (there can be multiple links/observers).
 -   The **inner circle** represents the node **task** (that returns a Promise).
 -   The **clock** represents the task **scheduler**,
--   The **envelope** means that the output is an observable that can notify the connected nodes; there are three possible outcomes:
+-   The **envelope** means that the output is an observable that can notify the connected nodes. Every envelope contains a token used to trace the path and to cancel the tasks execution. There are three possible outcomes:
     -   the notification message of a successful task, associated to Promise.prototype.then(),
     -   the error of a failure, associated to Promise.prototype.catch(),
     -   the finally, associated to Promise.prototype.finally()
@@ -74,19 +114,26 @@ What follows represents the node scheduler; the task execution may be immediate,
 
 ![vertex](./doc/img/regrafxScheduler@4x.png)
 
-Connecting nodes we can build a Graph:
+Connecting nodes we can build a **reactive graph**:
 
 ![vertex](./doc/img/regrafxGraph@4x.png)
 
-Therefore, a graph represents a collection of scheduled async-tasks that cooperate to build a process (even complex).
-As you can see the graph may be bidirected and cyclic, that means that we can build a powerful application.
+Therefore, a **reactive graph** represents a collection of scheduled async-tasks that cooperate to build a process (either simple or complex).
+As you can see the graph may be bidirected and cyclic, that means that we can build powerful applications.
 
 > Please note that drawing the graph, the behaviour of the application is even clear and well documented!
 
-### Reusable reactive graphs
+### Reusable Reactive Graphs
 
 > We can wrap reactive graphs (sub-graphs) inside classes that make them reusable!
 
+RegraFX provides a ```CompositeVertex``` class that can be extended to deal with a reactive grap as it would be a simple Vertex.  
+
+```js
+class MyCompositeVertex extends CompositeVertex{
+    // ...
+}
+```
 ## Example
 
 Let's say that we would like to build an application that repeatedly fetches data from a resource and map the response to something that would be consumed.
@@ -321,7 +368,7 @@ obj.output.subscribe(promise => promise.then(data => {
 
 ```
 
-## How to Use
+## How to Use ReGraFX (aka RGFX)
 
 ```js
 //Solution 1
