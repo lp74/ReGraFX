@@ -23,14 +23,14 @@ describe('Composite Vertex', () => {
         this.input.to(this.output);
       }
     }
-    const myCompositeObject = new MyComposite(2);
-    expect(myCompositeObject instanceof CompositeVertex).toBeTruthy();
+    const compVertex = new MyComposite(2);
+    expect(compVertex instanceof CompositeVertex).toBeTruthy();
 
-    myCompositeObject.subscribe(p => p.then(result => {
+    compVertex.subscribe(p => p.then(result => {
       expect(result).toBe(6);
       done();
     }));
-    myCompositeObject.trigger(1, 2, 3);
+    compVertex.trigger(1, 2, 3);
   });
   it('should be extended - err case', (done) => {
     class MyComposite extends CompositeVertex {
@@ -41,13 +41,34 @@ describe('Composite Vertex', () => {
         this.input.to(this.output);
       }
     }
-    const myCompositeObject = new MyComposite();
-    expect(myCompositeObject instanceof CompositeVertex).toBeTruthy();
+    const compVertex = new MyComposite();
+    expect(compVertex instanceof CompositeVertex).toBeTruthy();
 
-    myCompositeObject.subscribe(p => p.catch(result => {
+    compVertex.subscribe(p => p.catch(result => {
       expect(result).toBe(1);
       done();
     }));
-    myCompositeObject.trigger(1);
+    compVertex.trigger(1);
+  });
+
+  it('should be chained', (done) => {
+    class MyComposite extends CompositeVertex {
+      constructor() {
+        super();
+        this.input = new Vertex(new Task(x => x));
+        this.output = new Vertex(new Task(x => x));
+        this.input.to(this.output);
+      }
+    }
+
+    const compVertex = new MyComposite();
+    const v1 = new Vertex(new Task(x => x));
+    const v2 = new Vertex(new Task(x => x));
+
+    v1.to(compVertex);
+    compVertex.to(v2);
+
+    v2.subscribe(done);
+    v1.trigger(1);
   });
 });

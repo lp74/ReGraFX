@@ -326,21 +326,26 @@
     }
 
     _createClass(Vertex, [{
+      key: "$observer",
+      value: function $observer() {
+        return this.$$observer;
+      }
+    }, {
       key: "to",
       value: function to(vertex) {
-        this.$$thenObservers.subscribe(vertex.$$observer);
+        this.$$thenObservers.subscribe(vertex.$observer());
         return this;
       }
     }, {
       key: "err",
       value: function err(vertex) {
-        this.$$catchObservers.subscribe(vertex.$$observer);
+        this.$$catchObservers.subscribe(vertex.$observer());
         return this;
       }
     }, {
       key: "final",
       value: function final(vertex) {
-        this.$$finallyObservers.subscribe(vertex.$$observer);
+        this.$$finallyObservers.subscribe(vertex.$observer());
         return this;
       }
     }, {

@@ -1,6 +1,3 @@
-import { runInThisContext } from 'vm';
-import { Vertex } from '../vertex';
-
 export class CompositeVertex {
   constructor() {
   }
@@ -11,4 +8,5 @@ export class CompositeVertex {
   trigger(...input) {this.input.trigger(...input);}
   input(vertex) {this.input = vertex;}
   output(vertex) {this.output = vertex;}
+  $observer() {return this.input.$observer();}
 }

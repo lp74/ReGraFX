@@ -16,16 +16,17 @@ export class Vertex {
 
     this.$$observer = new Observer(this.$$next.bind(this), this.$$name);
   }
+  $observer() {return this.$$observer;}
   to(vertex) {
-    this.$$thenObservers.subscribe(vertex.$$observer);
+    this.$$thenObservers.subscribe(vertex.$observer());
     return this;
   }
   err(vertex) {
-    this.$$catchObservers.subscribe(vertex.$$observer);
+    this.$$catchObservers.subscribe(vertex.$observer());
     return this;
   }
   final(vertex) {
-    this.$$finallyObservers.subscribe(vertex.$$observer);
+    this.$$finallyObservers.subscribe(vertex.$observer());
     return this;
   }
 
