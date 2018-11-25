@@ -7,6 +7,7 @@ import { Scheduler } from './scheduler.js';
 import { Message } from './message.js';
 import { Observable } from './observable.js';
 import { Observer } from './observer.js';
+import { CompositeVertex } from './composite/composite-vertex.js';
 import { dfs, dfsGraph } from './search/dfs';
 
 const Search = {
@@ -22,5 +23,6 @@ export {
   Message,
   Observable,
   Observer,
+  CompositeVertex,
   Search
 };

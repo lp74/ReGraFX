@@ -447,6 +447,60 @@
     return Graph;
   }();
 
+  var CompositeVertex =
+  /*#__PURE__*/
+  function () {
+    function CompositeVertex() {
+      _classCallCheck(this, CompositeVertex);
+    }
+
+    _createClass(CompositeVertex, [{
+      key: "to",
+      value: function to(vertex) {
+        return this.output.to(vertex);
+      }
+    }, {
+      key: "err",
+      value: function err(vertex) {
+        return this.output.err(vertex);
+      }
+    }, {
+      key: "final",
+      value: function final(vertex) {
+        return this.output.final(vertex);
+      }
+    }, {
+      key: "subscribe",
+      value: function subscribe(fn) {
+        return this.output.subscribe(fn);
+      }
+    }, {
+      key: "trigger",
+      value: function trigger() {
+        var _this$input;
+
+        return (_this$input = this.input).trigger.apply(_this$input, arguments);
+      }
+    }, {
+      key: "input",
+      value: function input(vertex) {
+        this.input = vertex;
+      }
+    }, {
+      key: "output",
+      value: function output(vertex) {
+        this.output = vertex;
+      }
+    }, {
+      key: "$observer",
+      value: function $observer() {
+        return this.input.$observer();
+      }
+    }]);
+
+    return CompositeVertex;
+  }();
+
   function dfs(vertex) {
     var visited = [];
     visit(vertex.$$observer);
@@ -701,6 +755,7 @@
     Message: Message,
     Observable: Observable,
     Observer: Observer,
+    CompositeVertex: CompositeVertex,
     Search: Search
   });
 

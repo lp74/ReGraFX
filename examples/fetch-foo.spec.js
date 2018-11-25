@@ -28,8 +28,6 @@ describe('Fetch Foo', () => {
   beforeEach(() => {
     mock();
 
-    const graph = new Graph();
-
     fetchTask = new RGFX.Task(() => fetch('foo'));
     jsonTask = new RGFX.Task(data => data.json());
     mapTask = new RGFX.Task(data => {
@@ -48,12 +46,12 @@ describe('Fetch Foo', () => {
     );
     errorDialogTask = new RGFX.Task(err => console.err(err));
 
-    fetchNode = graph.addVertex(1, fetchTask);
-    jsonNode = graph.addVertex(2, jsonTask);
-    mapNode = graph.addVertex(3, mapTask);
-    repeatNode = graph.addVertex(4, repeatTask, new RGFX.Scheduler(50));
-    retryNode = graph.addVertex(5, retryTask, new RGFX.Scheduler(100));
-    errorDialogNode = graph.addVertex(6, errorDialogTask);
+    fetchNode = new RGFX.Vertex(fetchTask);
+    jsonNode = new RGFX.Vertex(jsonTask);
+    mapNode = new RGFX.Vertex(mapTask);
+    repeatNode = new RGFX.Vertex(repeatTask, new RGFX.Scheduler(50));
+    retryNode = new RGFX.Vertex(retryTask, new RGFX.Scheduler(100));
+    errorDialogNode = new RGFX.Vertex(errorDialogTask);
 
     fetchNode.to(jsonNode);
     jsonNode.to(mapNode);

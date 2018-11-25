@@ -1,6 +1,9 @@
+![vertex](./doc/img/regrafxNodeText@4x.png)
+
 # ReGraFX
 
 The power of Promises, Observers and Graph brought together to build a great data Flux.
+
 
 ## Why it is called ReGraFX?
 
@@ -10,13 +13,24 @@ The power of Promises, Observers and Graph brought together to build a great dat
 
 > We are going to call this kind of architecture **Reactive Graphs** or **RGFX**!
 
-## Introduction
+## Summary
+
+- [Introduction](#intro)
+- [Vertex](#vertex)
+- [Edge](#edge)
+- [Promise](#promise)
+- [Scheduler](#scheduler)
+- [Visual](#visual)
+- [Composite Vertex](#composite)
+- [Example](#example)
+
+## Introduction <a name='intro'></a> 
 
 We can describe an application as a set of decoupled graphs that cooperate to achieve a goal.
 Every graph represents a process.
 A process might decompose in many simple tasks.
 
-### The Vertex (aka Node)
+### The Vertex (aka Node) <a name='vertex'></a> 
 
 Every ```Vertex``` of our graph represents a ```Task``` (it wraps a task).
 A task receives an input and produces an output.
@@ -28,7 +42,7 @@ const aFunction = x => 2 * x;
 const vertex = new Vertex(new Task(aFunction));
 ```
 
-### The Edge
+### The Edge <a name='edge'></a> 
 
 Every edge of our graph links two nodes (tasks).
 We deliver the output of a task to another node using notifications that transit along edges (subscriptions).
@@ -36,7 +50,7 @@ Every node links other nodes with a 1-to-many relation.
 Every linked node observes the outcome of its parent tasks.
 That means that the outputs of a node are Observables and the inputs are Observers.
 
-### The Promise
+### The Promise <a name='promise'></a> 
 
 The output of a task is wrapped inside a promise.
 Every node keeps two collections of observers:
@@ -62,7 +76,7 @@ const token = vertex1.trigger(1, 2, 3);
 
 ```
 
-### The Scheduler
+### The Scheduler <a name='scheduler'></a> 
 
 We would like to schedule the execution of a task.
 That means that the node contains a ```Scheduler``` that executes or delays the task.
@@ -87,7 +101,7 @@ token.cancel();
 ```
 
 
-### Visually
+### Visually <a name='visual'></a> 
 
 The following image represents a node:
 
@@ -123,7 +137,7 @@ As you can see the graph may be bidirected and cyclic, that means that we can bu
 
 > Please note that drawing the graph, the behaviour of the application is even clear and well documented!
 
-### Reusable Reactive Graphs
+### The Composite Vertex  - Reusable Reactive Graphs <a name='composite'></a> 
 
 > We can wrap reactive graphs (sub-graphs) inside classes that make them reusable!
 
@@ -134,10 +148,12 @@ class MyCompositeVertex extends CompositeVertex{
     // ...
 }
 ```
-## Example
+## Example <a name='example'></a> 
 
 Let's say that we would like to build an application that repeatedly fetches data from a resource and map the response to something that would be consumed.
 The Fetch API provides an interface for fetching resources. We are going to use it for our example.
+
+### Step 1
 
 The graph describe our application:
 
@@ -164,6 +180,8 @@ jsonNode.subscribe(promise => promise.then(data => {
 
 ```
 
+### Step 2
+
 Now, we add a mapping node:
 
 ![application-graph-step-2](./doc/img/regrafxApplication-2@4x.png)
@@ -187,6 +205,8 @@ mapNode.subscribe(promise => promise.then(data => {
 );
 
 ```
+
+### Step 3
 
 Now, to poll the resources every 1 seconds, we add a repeat node
 
@@ -219,6 +239,9 @@ mapNode.subscribe(promise => promise.then(data => {
 }));
 
 ```
+
+### Step 4
+
 
 We want to manage erros, let's say that id the fetch or json tasks fail, we want retry 3 times, every 2 s:
 
@@ -259,6 +282,8 @@ mapNode.subscribe(promise => promise.then(data => {
 
 
 ```
+
+### Step 5
 
 After 3 errors, we show a dialog
 
@@ -352,20 +377,90 @@ mapNode.subscribe(promise => promise.then(data => {
 
 ```
 
-Now we can encapuslate the Reactive Graph inside an object:
+### Step 6
+
+Now we can encapuslate the Reactive Graph inside a ```CompositeVertex```:
 
 ```js
 
-const obj = {
-    input: fetchNode,
-    output: mapNode
-}
+// index.js
 
-obj.output.subscribe(promise => promise.then(data => {
-    // consume data
-    console.log(data);
+const fetchComposite = new FetchComposite();
+
+const outputElem = document.getElementById('o1');
+
+let message;
+b1.addEventListener('click', function () {
+  if (message) {message.token().cancel();}
+  message = fetchComposite.trigger(); // Trigger the node
+});
+
+// Subscribe the mapNode
+fetchComposite.subscribe(promise => promise.then(data => {
+  outputElem.innerText = data.toFixed(2);
 }));
 
+
+```
+
+```js
+
+// composite-vertex.js
+
+class FetchComposite extends RGFX.CompositeVertex {
+  constructor() {
+    super();
+    // Fetch - Task
+    const fetchTask = new RGFX.Task(() => fetch('foo.json'));
+    const fetchNode = new RGFX.Vertex(fetchTask);
+
+    // Fetch response to json - Task
+    const jsonTask = new RGFX.Task(response => response.json());
+    const jsonNode = new RGFX.Vertex(jsonTask);
+
+    // Map - Task
+    const mapTask = new RGFX.Task(data => data * Math.random());
+    const mapNode = new RGFX.Vertex(mapTask);
+
+    // Repeat every 1 s - Task
+    const repeatTask = new RGFX.Task((() => { }));
+    const repeatNode = new RGFX.Vertex(repeatTask, new RGFX.Scheduler(1000));
+
+    // On error, retry 3 times every 500 ms,  - Task
+    const keeper = { count: 0 };
+    const retryTask = new RGFX.Task(
+      err =>
+        new Promise((resolve, reject) => {
+          keeper.count++ > 2
+            ? (() => { keeper.count = 0; reject(err); })()
+            : resolve(err);
+        })
+    );
+    const retryNode = new RGFX.Vertex(retryTask, new RGFX.Scheduler(500));
+
+    // After 3 errors, show a dialog
+    const errorDialogTask = new RGFX.Task(err => confirm(`An error occurred for more then 3 times:\n\n${err}\n\nWould you like to retry?`) ? Promise.resolve() : Promise.reject());
+    const errorDialogNode = new RGFX.Vertex(errorDialogTask);
+
+    // Build the Graph
+    fetchNode.to(jsonNode);
+    jsonNode.to(mapNode);
+    mapNode.to(repeatNode);
+
+    repeatNode.to(fetchNode);
+
+    fetchNode.err(retryNode);
+    jsonNode.err(retryNode);
+    retryNode.to(fetchNode);
+
+    retryNode.err(errorDialogNode);
+
+    errorDialogNode.to(fetchNode);
+
+    this.input(fetchNode);
+    this.output(mapNode);
+  }
+}
 ```
 
 ## How to Use ReGraFX (aka RGFX)
