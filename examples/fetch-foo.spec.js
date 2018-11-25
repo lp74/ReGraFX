@@ -64,7 +64,7 @@ describe('Fetch Foo', () => {
     jsonNode.err(retryNode);
     retryNode.err(errorDialogNode);
 
-    mapNode.subscribe(p => p.then(console.log));
+    mapNode.subscribe(x => x);
   });
 
   afterEach(() => {

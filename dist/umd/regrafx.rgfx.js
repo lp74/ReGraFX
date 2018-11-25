@@ -1,6 +1,6 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('core-js/modules/es6.array.iterator'), require('core-js/modules/es6.object.keys'), require('core-js/modules/es7.promise.finally'), require('core-js/modules/web.dom.iterable'), require('core-js/modules/es6.array.map'), require('core-js/modules/es6.function.bind'), require('core-js/modules/es6.date.now'), require('core-js/modules/es7.symbol.async-iterator'), require('core-js/modules/es6.symbol'), require('core-js/modules/es6.promise')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'core-js/modules/es6.array.iterator', 'core-js/modules/es6.object.keys', 'core-js/modules/es7.promise.finally', 'core-js/modules/web.dom.iterable', 'core-js/modules/es6.array.map', 'core-js/modules/es6.function.bind', 'core-js/modules/es6.date.now', 'core-js/modules/es7.symbol.async-iterator', 'core-js/modules/es6.symbol', 'core-js/modules/es6.promise'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('core-js/modules/es6.array.iterator'), require('core-js/modules/es6.object.keys'), require('core-js/modules/es7.promise.finally'), require('core-js/modules/es6.function.bind'), require('core-js/modules/es6.date.now'), require('core-js/modules/es6.promise'), require('core-js/modules/es6.array.map'), require('core-js/modules/es6.array.index-of'), require('core-js/modules/es7.symbol.async-iterator'), require('core-js/modules/es6.symbol'), require('core-js/modules/web.dom.iterable')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'core-js/modules/es6.array.iterator', 'core-js/modules/es6.object.keys', 'core-js/modules/es7.promise.finally', 'core-js/modules/es6.function.bind', 'core-js/modules/es6.date.now', 'core-js/modules/es6.promise', 'core-js/modules/es6.array.map', 'core-js/modules/es6.array.index-of', 'core-js/modules/es7.symbol.async-iterator', 'core-js/modules/es6.symbol', 'core-js/modules/web.dom.iterable'], factory) :
   (factory((global.RGFX = {})));
 }(this, (function (exports) { 'use strict';
 
@@ -322,7 +322,9 @@
       this.$$catchObservers = new Observable();
       this.$$finallyObservers = new Observable();
       this.$$observable = new Observable();
-      this.$$observer = new Observer(this.$$next.bind(this), this.$$name);
+      var boundVertexFn = this.$$next.bind(this);
+      boundVertexFn.boundVertex = this;
+      this.$$observer = new Observer(boundVertexFn, this.$$name);
     }
 
     _createClass(Vertex, [{
@@ -445,7 +447,251 @@
     return Graph;
   }();
 
+  function dfs(vertex) {
+    var visited = [];
+    visit(vertex.$$observer);
+    return visited;
+
+    function visit(obs) {
+      var d = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var edge = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'origin';
+      var boundVertex = obs._fn.boundVertex;
+      visited.push({
+        vertex: boundVertex,
+        edge: edge,
+        depth: d
+      });
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = boundVertex.$$thenObservers.observers().iterable()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var obr = _step.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(obr._fn.boundVertex) === -1) {
+            visit(obr, d + 1, 'to');
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = boundVertex.$$catchObservers.observers().iterable()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _obr = _step2.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(_obr._fn.boundVertex) === -1) {
+            visit(_obr, d + 1, 'err');
+          }
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = boundVertex.$$finallyObservers.observers().iterable()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _obr2 = _step3.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(_obr2._fn.boundVertex) === -1) {
+            visit(_obr2, d + 1, 'final');
+          }
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+    }
+  } // TODO: use template method
+
+  function dfsGraph(vertex) {
+    var visited = [];
+    var elements = [];
+    visit(vertex.$$observer);
+    return elements;
+
+    function visit(obs) {
+      var d = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var edge = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'origin';
+      var boundVertex = obs._fn.boundVertex;
+      visited.push({
+        vertex: boundVertex,
+        edge: edge,
+        depth: d
+      });
+      elements.push({
+        data: {
+          id: boundVertex.$$name
+        }
+      });
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = boundVertex.$$thenObservers.observers().iterable()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var obr = _step4.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(obr._fn.boundVertex) === -1) {
+            visit(obr, d + 1, 'to');
+          }
+
+          elements.push({
+            data: {
+              id: obs._fn.boundVertex.$$name + obr._fn.boundVertex.$$name,
+              source: obs._fn.boundVertex.$$name,
+              target: obr._fn.boundVertex.$$name
+            }
+          });
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = boundVertex.$$catchObservers.observers().iterable()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var _obr3 = _step5.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(_obr3._fn.boundVertex) === -1) {
+            visit(_obr3, d + 1, 'err');
+          }
+
+          elements.push({
+            data: {
+              id: obs._fn.boundVertex.$$name + _obr3._fn.boundVertex.$$name,
+              source: obs._fn.boundVertex.$$name,
+              target: _obr3._fn.boundVertex.$$name
+            },
+            style: {
+              'line-color': '#d90000',
+              'target-arrow-color': '#d90000'
+            }
+          });
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
+
+      try {
+        for (var _iterator6 = boundVertex.$$finallyObservers.observers().iterable()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var _obr4 = _step6.value;
+
+          if (visited.map(function (x) {
+            return x.vertex;
+          }).indexOf(_obr4._fn.boundVertex) === -1) {
+            visit(_obr4, d + 1, 'final');
+          }
+
+          elements.push({
+            data: {
+              id: obs._fn.boundVertex.$$name + _obr4._fn.boundVertex.$$name,
+              source: obs._fn.boundVertex.$$name,
+              target: _obr4._fn.boundVertex.$$name
+            }
+          });
+        }
+      } catch (err) {
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+            _iterator6.return();
+          }
+        } finally {
+          if (_didIteratorError6) {
+            throw _iteratorError6;
+          }
+        }
+      }
+    }
+  }
+
   /* REactive GRAph FluX ReGraFX.js */
+  var Search = {
+    dfs: dfs,
+    dfsGraph: dfsGraph
+  };
 
   var regrafx = /*#__PURE__*/Object.freeze({
     Graph: Graph,
@@ -454,7 +700,8 @@
     Scheduler: Scheduler,
     Message: Message,
     Observable: Observable,
-    Observer: Observer
+    Observer: Observer,
+    Search: Search
   });
 
   /* REactive GRAph FluX ReGraFX.js */

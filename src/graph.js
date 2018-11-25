@@ -1,5 +1,4 @@
 import { Vertex } from './vertex.js';
-import { Subscribers } from './subscribers.js';
 import { Task } from './task.js';
 import { Scheduler } from './scheduler.js';
 

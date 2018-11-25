@@ -1,6 +1,6 @@
 {
   "name": "regrafx",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.3",
   "description": "Reactive Graph Flux",
   "main": "dist/regrafx.js",
   "module": "src/regrafx.es6.js",

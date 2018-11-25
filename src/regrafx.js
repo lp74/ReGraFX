@@ -7,6 +7,12 @@ import { Scheduler } from './scheduler.js';
 import { Message } from './message.js';
 import { Observable } from './observable.js';
 import { Observer } from './observer.js';
+import { dfs, dfsGraph } from './search/dfs';
+
+const Search = {
+  dfs: dfs,
+  dfsGraph: dfsGraph
+};
 
 export {
   Graph,
@@ -15,5 +21,6 @@ export {
   Scheduler,
   Message,
   Observable,
-  Observer
+  Observer,
+  Search
 };

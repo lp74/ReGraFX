@@ -14,7 +14,9 @@ export class Vertex {
     this.$$finallyObservers = new Observable();
     this.$$observable = new Observable();
 
-    this.$$observer = new Observer(this.$$next.bind(this), this.$$name);
+    const boundVertexFn = this.$$next.bind(this);
+    boundVertexFn.boundVertex = this;
+    this.$$observer = new Observer(boundVertexFn, this.$$name);
   }
   $observer() {return this.$$observer;}
   to(vertex) {
