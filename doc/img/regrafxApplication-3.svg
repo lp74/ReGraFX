@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60">
+  <defs>
+    <style>
+      .cls-1, .cls-15 {
+        fill: #fff;
+      }
+
+      .cls-18, .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-15, .cls-18, .cls-2, .cls-4 {
+        stroke: #464647;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-18, .cls-2 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-3, .cls-5, .cls-6 {
+        fill: #464647;
+      }
+
+      .cls-5 {
+        font-size: 4px;
+        font-family: ABBvoice-Regular, ABBvoice;
+      }
+
+      .cls-6 {
+        font-size: 3px;
+        font-family: ABBvoice-Light, ABBvoice;
+        font-weight: 300;
+      }
+
+      .cls-7 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-10 {
+        letter-spacing: 0.01em;
+      }
+
+      .cls-11 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0.02em;
+      }
+
+      .cls-13 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-14 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0.01em;
+      }
+
+      .cls-17 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-18 {
+        stroke-dasharray: 1 1;
+      }
+    </style>
+  </defs>
+  <title>regrafxApplication-3</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Apps">
+      <g>
+        <rect class="cls-1" width="160" height="60"/>
+        <g>
+          <path class="cls-2" d="M44,42s-8-2-8-10a10,10,0,0,1,5.94-9.19"/>
+          <polygon class="cls-3" points="41.77 23.7 44 22 41.22 22.35 41.77 23.7"/>
+        </g>
+        <rect class="cls-1" x="18" y="32" width="60" height="6"/>
+        <circle class="cls-4" cx="48" cy="42" r="4"/>
+        <text class="cls-5" transform="translate(46.56 43.17)">D</text>
+        <text class="cls-6" transform="translate(31.44 36)"><tspan class="cls-7">r</tspan><tspan class="cls-8" x="1.08" y="0">epe</tspan><tspan class="cls-9" x="6.24" y="0">a</tspan><tspan x="7.86" y="0">t a</tspan><tspan class="cls-10" x="11.41" y="0">f</tspan><tspan class="cls-11" x="12.55" y="0">t</tspan><tspan x="13.7" y="0">er </tspan><tspan class="cls-12" x="17.2" y="0">{x</tspan><tspan x="19.78" y="0">} se</tspan><tspan class="cls-13" x="24.64" y="0">c</tspan><tspan class="cls-14" x="26.11" y="0">onds</tspan></text>
+        <g>
+          <path class="cls-2" d="M54.21,42H100s8-2.16,8-10c0-8.16-8-9.84-8-9.84"/>
+          <polygon class="cls-3" points="54.71 42.73 52 42 54.71 41.27 54.71 42.73"/>
+        </g>
+        <text class="cls-6" transform="translate(47.12 50)">4</text>
+        <rect class="cls-15" x="116" y="18" width="8" height="8"/>
+        <text class="cls-6" transform="translate(106.21 16)">subsc<tspan class="cls-16" x="8.21" y="0">r</tspan><tspan class="cls-8" x="9.38" y="0">iber: log msg</tspan></text>
+        <circle class="cls-4" cx="96" cy="22" r="4"/>
+        <text class="cls-6" transform="translate(92.92 16)">map</text>
+        <g>
+          <line class="cls-2" x1="100" y1="22" x2="113.79" y2="22"/>
+          <polygon class="cls-3" points="113.29 22.73 116 22 113.29 21.27 113.29 22.73"/>
+        </g>
+        <text class="cls-5" transform="translate(94.8 23.17)">=</text>
+        <text class="cls-6" transform="translate(95.26 30)">3</text>
+        <g>
+          <line class="cls-2" x1="76" y1="22" x2="89.79" y2="22"/>
+          <polygon class="cls-3" points="89.29 22.73 92 22 89.29 21.27 89.29 22.73"/>
+        </g>
+        <text class="cls-6" transform="translate(69.05 16)">json</text>
+        <circle class="cls-4" cx="72" cy="22" r="4"/>
+        <text class="cls-5" transform="translate(70.8 23.17)">=</text>
+        <text class="cls-6" transform="translate(71.21 30)">2</text>
+        <g>
+          <line class="cls-2" x1="52" y1="22" x2="65.79" y2="22"/>
+          <polygon class="cls-3" points="65.29 22.73 68 22 65.29 21.27 65.29 22.73"/>
+        </g>
+        <circle class="cls-4" cx="48" cy="22" r="4"/>
+        <text class="cls-6" transform="translate(44.44 16)"><tspan class="cls-17">f</tspan><tspan class="cls-8" x="1.05" y="0">e</tspan><tspan class="cls-11" x="2.69" y="0">t</tspan><tspan x="3.84" y="0">ch</tspan></text>
+        <text class="cls-5" transform="translate(46.8 23.17)">=</text>
+        <text class="cls-6" transform="translate(47.36 30)">1</text>
+        <rect class="cls-1" x="18" y="12.12" width="16" height="6"/>
+        <g>
+          <line class="cls-18" x1="28" y1="22" x2="41.79" y2="22"/>
+          <polygon class="cls-3" points="41.29 22.73 44 22 41.29 21.27 41.29 22.73"/>
+        </g>
+        <circle class="cls-4" cx="26" cy="22" r="2"/>
+        <text class="cls-6" transform="translate(21.16 16)">t<tspan class="cls-16" x="1.18" y="0">r</tspan><tspan class="cls-8" x="2.35" y="0">igger</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

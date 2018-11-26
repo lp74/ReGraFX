@@ -1,8 +1,8 @@
-![vertex](./doc/img/regrafxNodeText@4x.png)
+![vertex](./doc/img/regrafxNode.svg)
 
-# ReGraFX
+# ReGraFX - Reactive Graph
 
-The power of Promises, Observers and Graph brought together to build a great data Flux.
+The power of **Promises**, **Observers** and **Graph** brought together to build a great data Flux.
 
 
 ## Why it is called ReGraFX?
@@ -24,13 +24,15 @@ The power of Promises, Observers and Graph brought together to build a great dat
 - [Composite Vertex](#composite)
 - [Example](#example)
 
-## Introduction <a name='intro'></a> 
+<a name="intro"></a> 
+## Introduction
 
 We can describe an application as a set of decoupled graphs that cooperate to achieve a goal.
 Every graph represents a process.
 A process might decompose in many simple tasks.
 
-### The Vertex (aka Node) <a name='vertex'></a> 
+<a name = "vertex"></a> 
+### The Vertex (aka Node)
 
 Every ```Vertex``` of our graph represents a ```Task``` (it wraps a task).
 A task receives an input and produces an output.
@@ -41,8 +43,8 @@ A task can be synchronous or asynchronous; we wrap the output of a synchronous t
 const aFunction = x => 2 * x; 
 const vertex = new Vertex(new Task(aFunction));
 ```
-
-### The Edge <a name='edge'></a> 
+<a name = "edge"></a> 
+### The Edge
 
 Every edge of our graph links two nodes (tasks).
 We deliver the output of a task to another node using notifications that transit along edges (subscriptions).
@@ -50,7 +52,8 @@ Every node links other nodes with a 1-to-many relation.
 Every linked node observes the outcome of its parent tasks.
 That means that the outputs of a node are Observables and the inputs are Observers.
 
-### The Promise <a name='promise'></a> 
+<a name = "promise"></a> 
+### The Promise
 
 The output of a task is wrapped inside a promise.
 Every node keeps two collections of observers:
@@ -76,7 +79,8 @@ const token = vertex1.trigger(1, 2, 3);
 
 ```
 
-### The Scheduler <a name='scheduler'></a> 
+<a name = "scheduler"></a> 
+### The Scheduler
 
 We would like to schedule the execution of a task.
 That means that the node contains a ```Scheduler``` that executes or delays the task.
@@ -96,16 +100,16 @@ const vertex = new Vertex(new Task(aFunction), new Scheduler(delay));
 To cancel:
 
 ```js
-const token = vertex.trigger();
-token.cancel();
+const message = vertex.trigger();
+message.token().cancel();
 ```
 
-
-### Visually <a name='visual'></a> 
+<a name = "visual"></a> 
+### Visually 
 
 The following image represents a node:
 
-![vertex](./doc/img/regrafxNodeText@4x.png)
+![vertex](./doc/img/regrafxNodeText.svg)
 
 -   The data flows from the left to the right.
 -   The **eyes** means that the **input** link is an **observer** (there can be multiple links/observers).
@@ -118,26 +122,27 @@ The following image represents a node:
 
 The following image represents two connected nodes:
 
-![vertex](./doc/img/regrafxNodes@4x.png)
+![vertex](./doc/img/regrafxNodes.svg)
 
 And this is the simplified representation:
 
-![vertex](./doc/img/regrafxNodesSimple@4x.png)
+![vertex](./doc/img/regrafxNodesSimple.svg)
 
 What follows represents the node scheduler; the task execution may be immediate, delayed or paused (i.e):
 
-![vertex](./doc/img/regrafxScheduler@4x.png)
+![vertex](./doc/img/regrafxScheduler.svg)
 
 Connecting nodes we can build a **reactive graph**:
 
-![vertex](./doc/img/regrafxGraph@4x.png)
+![vertex](./doc/img/regrafxGraph.svg)
 
 Therefore, a **reactive graph** represents a collection of scheduled async-tasks that cooperate to build a process (either simple or complex).
-As you can see the graph may be bidirected and cyclic, that means that we can build powerful applications.
+The graph is directed and can contain cycles, that means that we can build powerful applications.
 
 > Please note that drawing the graph, the behaviour of the application is even clear and well documented!
 
-### The Composite Vertex  - Reusable Reactive Graphs <a name='composite'></a> 
+<a name = "composite"></a> 
+### The Composite Vertex  - Reusable Reactive Graphs 
 
 > We can wrap reactive graphs (sub-graphs) inside classes that make them reusable!
 
@@ -148,7 +153,8 @@ class MyCompositeVertex extends CompositeVertex{
     // ...
 }
 ```
-## Example <a name='example'></a> 
+<a name = "example"></a>
+## Example 
 
 Let's say that we would like to build an application that repeatedly fetches data from a resource and map the response to something that would be consumed.
 The Fetch API provides an interface for fetching resources. We are going to use it for our example.
@@ -157,7 +163,7 @@ The Fetch API provides an interface for fetching resources. We are going to use 
 
 The graph describe our application:
 
-![application-graph-step-1](./doc/img/regrafxApplication-1@4x.png)
+![application-graph-step-1](./doc/img/regrafxApplication-1.svg)
 
 ```javascript
 
@@ -184,7 +190,7 @@ jsonNode.subscribe(promise => promise.then(data => {
 
 Now, we add a mapping node:
 
-![application-graph-step-2](./doc/img/regrafxApplication-2@4x.png)
+![application-graph-step-2](./doc/img/regrafxApplication-2.svg)
 
 ```js
 
@@ -210,7 +216,7 @@ mapNode.subscribe(promise => promise.then(data => {
 
 Now, to poll the resources every 1 seconds, we add a repeat node
 
-![application-graph-step-3](./doc/img/regrafxApplication-3@4x.png)
+![application-graph-step-3](./doc/img/regrafxApplication-3.svg)
 
 ```js
 
@@ -245,7 +251,7 @@ mapNode.subscribe(promise => promise.then(data => {
 
 We want to manage erros, let's say that id the fetch or json tasks fail, we want retry 3 times, every 2 s:
 
-![application-graph-step-4](./doc/img/regrafxApplication-4@4x.png)
+![application-graph-step-4](./doc/img/regrafxApplication-4.svg)
 
 ```js
 
@@ -287,7 +293,7 @@ mapNode.subscribe(promise => promise.then(data => {
 
 After 3 errors, we show a dialog
 
-![application-graph-step-5](./doc/img/regrafxApplication-5@4x.png)
+![application-graph-step-5](./doc/img/regrafxApplication-5.svg)
 
 ```javascript
 

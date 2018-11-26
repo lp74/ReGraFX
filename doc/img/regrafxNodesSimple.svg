@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 52">
+  <defs>
+    <style>
+      .cls-1, .cls-8 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4, .cls-6, .cls-9 {
+        fill: none;
+        stroke-linecap: round;
+      }
+
+      .cls-2 {
+        stroke: #ee3241;
+      }
+
+      .cls-2, .cls-4, .cls-6, .cls-8, .cls-9 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #ee3241;
+      }
+
+      .cls-4 {
+        stroke: #d2d2d2;
+      }
+
+      .cls-5 {
+        fill: #d2d2d2;
+      }
+
+      .cls-6, .cls-8, .cls-9 {
+        stroke: #464647;
+      }
+
+      .cls-7 {
+        fill: #464647;
+      }
+
+      .cls-9 {
+        stroke-width: 0.5px;
+      }
+    </style>
+  </defs>
+  <title>regrafxNodesSimple</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_2-2" data-name="Layer 2">
+      <g>
+        <rect class="cls-1" width="160" height="52"/>
+        <g>
+          <g>
+            <path class="cls-2" d="M75,18H74c-6,0-8,4-8,4s-2,4-8,4"/>
+            <rect class="cls-3" x="73.82" y="16.91" width="2.18" height="2.18"/>
+          </g>
+          <g>
+            <path class="cls-4" d="M74.66,34H74c-6,0-8-4-8-4s-2-4-8-4"/>
+            <g>
+              <circle class="cls-1" cx="74.59" cy="34" r="1.24"/>
+              <path class="cls-5" d="M74.59,32.59A1.41,1.41,0,1,0,76,34a1.41,1.41,0,0,0-1.41-1.41Zm0,2.49A1.08,1.08,0,1,1,75.67,34a1.08,1.08,0,0,1-1.08,1.08Z"/>
+            </g>
+          </g>
+          <g>
+            <polyline class="cls-6" points="74.82 26 74 26 58 26"/>
+            <circle class="cls-7" cx="74.76" cy="26" r="1.24"/>
+          </g>
+          <g>
+            <line class="cls-6" x1="42.47" y1="26" x2="58" y2="26"/>
+            <polygon class="cls-7" points="40 27.64 42.76 26 40 24.36 40 27.64"/>
+          </g>
+          <circle class="cls-8" cx="58" cy="26" r="4"/>
+          <g>
+            <path class="cls-2" d="M119,18h-1c-6,0-8,4-8,4s-2,4-8,4"/>
+            <rect class="cls-3" x="117.82" y="16.91" width="2.18" height="2.18"/>
+          </g>
+          <g>
+            <path class="cls-4" d="M118.66,34H118c-6,0-8-4-8-4s-2-4-8-4"/>
+            <g>
+              <path class="cls-1" d="M118.59,32.76A1.24,1.24,0,1,1,117.35,34,1.24,1.24,0,0,1,118.59,32.76Z"/>
+              <path class="cls-5" d="M118.59,32.59A1.41,1.41,0,1,0,120,34a1.41,1.41,0,0,0-1.41-1.41Zm0,2.49A1.08,1.08,0,1,1,119.67,34a1.08,1.08,0,0,1-1.08,1.08Z"/>
+            </g>
+          </g>
+          <g>
+            <polyline class="cls-6" points="118.82 26 118 26 102 26"/>
+            <path class="cls-7" d="M118.76,24.76A1.24,1.24,0,1,1,117.52,26,1.24,1.24,0,0,1,118.76,24.76Z"/>
+          </g>
+          <g>
+            <line class="cls-6" x1="86.47" y1="26" x2="102" y2="26"/>
+            <polygon class="cls-7" points="84 27.64 86.76 26 84 24.36 84 27.64"/>
+          </g>
+          <circle class="cls-8" cx="102" cy="26" r="4"/>
+          <line class="cls-9" x1="76" y1="26" x2="84" y2="26"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

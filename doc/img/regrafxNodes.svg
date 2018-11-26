@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 160 52">
+  <defs>
+    <style>
+      .cls-1, .cls-11, .cls-14, .cls-6, .cls-7, .cls-9 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        fill: #474747;
+      }
+
+      .cls-5 {
+        clip-path: url(#clip-path-3);
+      }
+
+      .cls-11, .cls-14, .cls-6 {
+        stroke: #464647;
+      }
+
+      .cls-11, .cls-14, .cls-6, .cls-7, .cls-9 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-7 {
+        stroke: #ee3241;
+      }
+
+      .cls-11, .cls-7, .cls-9 {
+        stroke-linecap: round;
+      }
+
+      .cls-8 {
+        fill: #ee3241;
+      }
+
+      .cls-9 {
+        stroke: #d2d2d2;
+      }
+
+      .cls-10 {
+        fill: #d2d2d2;
+      }
+
+      .cls-12 {
+        fill: #464647;
+      }
+
+      .cls-13 {
+        clip-path: url(#clip-path-4);
+      }
+
+      .cls-14 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-15 {
+        clip-path: url(#clip-path-6);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-1" x="90" y="32" width="6" height="6"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect class="cls-1" x="77" y="22" width="6" height="6"/>
+    </clipPath>
+    <clipPath id="clip-path-4">
+      <rect class="cls-1" x="45" y="14" width="6" height="6"/>
+    </clipPath>
+    <clipPath id="clip-path-6">
+      <rect class="cls-1" x="109" y="14" width="6" height="6"/>
+    </clipPath>
+  </defs>
+  <title>regrafxNodes</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_2-2" data-name="Layer 2">
+      <g>
+        <rect class="cls-2" width="160" height="52"/>
+        <g id="UI_View_16">
+          <g class="cls-3">
+            <g class="cls-3">
+              <path class="cls-4" d="M93,35.75a.75.75,0,1,1,.75-.75.76.76,0,0,1-.75.75m0,.5a2.93,2.93,0,0,1-2-1.17L91,35l0-.07a2.2,2.2,0,0,1,3.9,0L95,35l0,.08a2.93,2.93,0,0,1-2,1.17M91.31,35A2.52,2.52,0,0,0,93,36a2.49,2.49,0,0,0,1.68-1A2.49,2.49,0,0,0,93,34a2.52,2.52,0,0,0-1.69,1"/>
+            </g>
+          </g>
+        </g>
+        <g id="UI_Evelope_16">
+          <g class="cls-5">
+            <path class="cls-4" d="M80,25.28l-2-1.53H82ZM79.12,25,78,24.16v2.09Zm1.5.21-.62.48-.6-.47L78,26.75H82ZM80.9,25,82,26.25V24.16Z"/>
+          </g>
+        </g>
+        <g>
+          <circle class="cls-6" cx="48" cy="30" r="8"/>
+          <g>
+            <path class="cls-7" d="M65,22H64c-6,0-8,4-8,4s-2,4-8,4"/>
+            <rect class="cls-8" x="63.82" y="20.91" width="2.18" height="2.18"/>
+          </g>
+          <g>
+            <path class="cls-9" d="M64.66,38H64c-6,0-8-4-8-4s-2-4-8-4"/>
+            <g>
+              <circle class="cls-2" cx="64.59" cy="38" r="1.24"/>
+              <path class="cls-10" d="M64.59,36.59A1.41,1.41,0,1,0,66,38a1.41,1.41,0,0,0-1.41-1.41Zm0,2.49A1.08,1.08,0,1,1,65.67,38a1.08,1.08,0,0,1-1.08,1.08Z"/>
+            </g>
+          </g>
+          <g>
+            <polyline class="cls-11" points="64.82 30 64 30 48 30"/>
+            <circle class="cls-12" cx="64.76" cy="30" r="1.24"/>
+          </g>
+          <g>
+            <line class="cls-11" x1="32.47" y1="30" x2="48" y2="30"/>
+            <polygon class="cls-12" points="30 31.64 32.76 30 30 28.36 30 31.64"/>
+          </g>
+          <circle class="cls-12" cx="48" cy="30" r="2"/>
+        </g>
+        <g id="UI_TimeAndDate_16">
+          <g class="cls-13">
+            <g class="cls-13">
+              <path class="cls-4" d="M48.62,16.48a1.15,1.15,0,1,1,0,2.3,1.15,1.15,0,1,1,0-2.3m0-.23A1.38,1.38,0,1,0,50,17.62a1.38,1.38,0,0,0-1.38-1.37"/>
+              <polygon class="cls-4" points="48.63 17.92 47.96 17.14 48.17 16.96 48.66 17.53 49.03 17.25 49.21 17.46 48.63 17.92"/>
+              <path class="cls-4" d="M47.25,18.5h-1V16.25h1.51a1.61,1.61,0,0,1,1.74,0v-1H49V15h-.75v.25h-1V15H46.5v.25H46v3.5h1.45a2.43,2.43,0,0,1-.2-.25m1.25-3.25h.25v.5H48.5Zm-1.75,0H47v.5h-.25Z"/>
+              <path class="cls-4" d="M47.25,16.76h-.5v.5H47a2.13,2.13,0,0,1,.21-.49"/>
+              <path class="cls-4" d="M47,17.62V17.5h-.25V18H47a2.33,2.33,0,0,1,0-.38"/>
+            </g>
+          </g>
+        </g>
+        <g>
+          <circle class="cls-6" cx="112" cy="30" r="8"/>
+          <g>
+            <path class="cls-7" d="M129,22h-1c-6,0-8,4-8,4s-2,4-8,4"/>
+            <rect class="cls-8" x="127.82" y="20.91" width="2.18" height="2.18"/>
+          </g>
+          <g>
+            <path class="cls-9" d="M128.66,38H128c-6,0-8-4-8-4s-2-4-8-4"/>
+            <g>
+              <circle class="cls-2" cx="128.59" cy="38" r="1.24"/>
+              <path class="cls-10" d="M128.59,36.59A1.41,1.41,0,1,0,130,38a1.41,1.41,0,0,0-1.41-1.41Zm0,2.49A1.08,1.08,0,1,1,129.67,38a1.08,1.08,0,0,1-1.08,1.08Z"/>
+            </g>
+          </g>
+          <g>
+            <polyline class="cls-11" points="128.82 30 128 30 112 30"/>
+            <circle class="cls-12" cx="128.76" cy="30" r="1.24"/>
+          </g>
+          <g>
+            <line class="cls-11" x1="96.47" y1="30" x2="112" y2="30"/>
+            <polygon class="cls-12" points="94 31.64 96.76 30 94 28.36 94 31.64"/>
+          </g>
+          <circle class="cls-12" cx="112" cy="30" r="2"/>
+        </g>
+        <line class="cls-14" x1="66" y1="30" x2="94" y2="30"/>
+        <g id="UI_TimeAndDate_16-2" data-name="UI_TimeAndDate_16">
+          <g class="cls-15">
+            <g class="cls-15">
+              <path class="cls-4" d="M112.62,16.48a1.15,1.15,0,1,1,0,2.3,1.15,1.15,0,1,1,0-2.3m0-.23A1.38,1.38,0,1,0,114,17.62a1.38,1.38,0,0,0-1.38-1.37"/>
+              <polygon class="cls-4" points="112.63 17.92 111.96 17.14 112.17 16.96 112.67 17.53 113.03 17.25 113.21 17.46 112.63 17.92"/>
+              <path class="cls-4" d="M111.25,18.5h-1V16.25h1.51a1.61,1.61,0,0,1,1.74,0v-1H113V15h-.75v.25h-1V15h-.75v.25H110v3.5h1.45a2.43,2.43,0,0,1-.2-.25m1.25-3.25h.25v.5h-.25Zm-1.75,0H111v.5h-.25Z"/>
+              <path class="cls-4" d="M111.25,16.76h-.5v.5H111a2.13,2.13,0,0,1,.21-.49"/>
+              <path class="cls-4" d="M111,17.62V17.5h-.25V18H111a2.33,2.33,0,0,1,0-.38"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

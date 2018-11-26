@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 52">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke: #464647;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        font-size: 6px;
+        font-family: MyriadPro-Regular, Myriad Pro;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #464647;
+      }
+
+      .cls-4 {
+        font-size: 5px;
+        font-family: ABBvoice-Regular, ABBvoice;
+      }
+
+      .cls-5 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-6 {
+        letter-spacing: -0.03em;
+      }
+    </style>
+  </defs>
+  <title>regrafxScheduler</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_2-2" data-name="Layer 2">
+      <g>
+        <rect class="cls-1" width="160" height="52"/>
+        <g>
+          <g>
+            <circle class="cls-2" cx="79.19" cy="28" r="4"/>
+            <text class="cls-3" transform="translate(77.19 18)">D</text>
+          </g>
+          <g>
+            <circle class="cls-2" cx="39.19" cy="28" r="4"/>
+            <text class="cls-3" transform="translate(37.4 18)">=</text>
+          </g>
+          <g>
+            <circle class="cls-2" cx="119.19" cy="28" r="4"/>
+            <text class="cls-3" transform="translate(117.13 18)">//</text>
+          </g>
+          <text class="cls-4" transform="translate(33.69 40)">pa<tspan class="cls-5" x="5.94" y="0">s</tspan><tspan x="8.42" y="0">s</tspan></text>
+          <text class="cls-4" transform="translate(73.03 40)">del<tspan class="cls-6" x="7.13" y="0">a</tspan><tspan x="9.8" y="0">y</tspan></text>
+          <text class="cls-4" transform="translate(112.08 40)">pause</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

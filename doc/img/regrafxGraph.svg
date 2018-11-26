@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke: #464647;
+      }
+
+      .cls-3 {
+        fill: #464647;
+      }
+
+      .cls-4 {
+        stroke: #ee3241;
+      }
+
+      .cls-5 {
+        fill: #ee3241;
+      }
+    </style>
+  </defs>
+  <title>regrafxGraph</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_2-2" data-name="Layer 2">
+      <g>
+        <rect class="cls-1" width="160" height="52"/>
+        <g>
+          <g>
+            <line class="cls-2" x1="64" y1="26" x2="77.08" y2="26"/>
+            <polygon class="cls-3" points="76.42 26.96 80 26 76.42 25.04 76.42 26.96"/>
+          </g>
+          <g>
+            <line class="cls-2" x1="88" y1="26" x2="101.08" y2="26"/>
+            <polygon class="cls-3" points="100.42 26.96 104 26 100.42 25.04 100.42 26.96"/>
+          </g>
+          <g>
+            <path class="cls-2" d="M56,42s-8,0-8-8c0-4.76,2.83-6.69,5.12-7.47"/>
+            <polygon class="cls-3" points="52.7 27.68 56 26 52.3 25.8 52.7 27.68"/>
+          </g>
+          <g>
+            <path class="cls-2" d="M66.87,41.59A7.3,7.3,0,0,0,72,34.16c0-8.16-8-8-8-8"/>
+            <polygon class="cls-3" points="67.7 42.31 64 42.16 67.28 40.44 67.7 42.31"/>
+          </g>
+          <g>
+            <path class="cls-2" d="M53.12,25.35C50.82,24.6,48,22.69,48,17.84c0-7.84,8-8,8-8"/>
+            <polygon class="cls-3" points="52.67 24.21 56 25.84 52.3 26.09 52.67 24.21"/>
+          </g>
+          <g>
+            <path class="cls-4" d="M64,25.84s8-1.84,8-8a7.3,7.3,0,0,0-5.13-7.43"/>
+            <polygon class="cls-5" points="67.7 9.69 64 9.84 67.28 11.56 67.7 9.69"/>
+          </g>
+          <circle class="cls-2" cx="60" cy="26" r="4"/>
+          <circle class="cls-2" cx="60" cy="42" r="4"/>
+          <circle class="cls-2" cx="60" cy="10" r="4"/>
+          <circle class="cls-2" cx="84" cy="26" r="4"/>
+          <circle class="cls-2" cx="108" cy="26" r="4"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

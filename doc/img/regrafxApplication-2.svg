@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 41">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-12, .cls-2, .cls-6, .cls-7 {
+        stroke: #464647;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        font-size: 3px;
+        font-family: ABBvoice-Light, ABBvoice;
+        font-weight: 300;
+      }
+
+      .cls-3, .cls-8, .cls-9 {
+        fill: #464647;
+      }
+
+      .cls-4 {
+        letter-spacing: 0.01em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-12, .cls-6, .cls-7 {
+        fill: none;
+      }
+
+      .cls-12, .cls-7 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-9 {
+        font-size: 4px;
+        font-family: ABBvoice-Regular, ABBvoice;
+      }
+
+      .cls-10 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-11 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-12 {
+        stroke-dasharray: 1 1;
+      }
+    </style>
+  </defs>
+  <title>regrafxApplication-2</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Apps">
+      <g>
+        <rect class="cls-1" width="160" height="41"/>
+        <rect class="cls-2" x="116" y="18" width="8" height="8"/>
+        <text class="cls-3" transform="translate(106.21 16)">subsc<tspan class="cls-4" x="8.21" y="0">r</tspan><tspan class="cls-5" x="9.38" y="0">iber: log msg</tspan></text>
+        <circle class="cls-6" cx="96" cy="22" r="4"/>
+        <text class="cls-3" transform="translate(92.92 16)">map</text>
+        <g>
+          <line class="cls-7" x1="100" y1="22" x2="113.79" y2="22"/>
+          <polygon class="cls-8" points="113.29 22.73 116 22 113.29 21.27 113.29 22.73"/>
+        </g>
+        <text class="cls-9" transform="translate(94.8 23.17)">=</text>
+        <text class="cls-3" transform="translate(95.26 30)">3</text>
+        <g>
+          <line class="cls-7" x1="76" y1="22" x2="89.79" y2="22"/>
+          <polygon class="cls-8" points="89.29 22.73 92 22 89.29 21.27 89.29 22.73"/>
+        </g>
+        <text class="cls-3" transform="translate(69.05 16)">json</text>
+        <circle class="cls-6" cx="72" cy="22" r="4"/>
+        <text class="cls-9" transform="translate(70.8 23.17)">=</text>
+        <text class="cls-3" transform="translate(71.21 30)">2</text>
+        <g>
+          <line class="cls-7" x1="52" y1="22" x2="65.79" y2="22"/>
+          <polygon class="cls-8" points="65.29 22.73 68 22 65.29 21.27 65.29 22.73"/>
+        </g>
+        <circle class="cls-6" cx="48" cy="22" r="4"/>
+        <text class="cls-3" transform="translate(44.44 16)"><tspan class="cls-10">f</tspan><tspan class="cls-5" x="1.05" y="0">e</tspan><tspan class="cls-11" x="2.69" y="0">t</tspan><tspan x="3.84" y="0">ch</tspan></text>
+        <text class="cls-9" transform="translate(46.8 23.17)">=</text>
+        <text class="cls-3" transform="translate(47.36 30)">1</text>
+        <rect class="cls-1" x="18" y="12.12" width="16" height="6"/>
+        <g>
+          <line class="cls-12" x1="28" y1="22" x2="41.79" y2="22"/>
+          <polygon class="cls-8" points="41.29 22.73 44 22 41.29 21.27 41.29 22.73"/>
+        </g>
+        <circle class="cls-6" cx="26" cy="22" r="2"/>
+        <text class="cls-3" transform="translate(21.16 16)">t<tspan class="cls-4" x="1.18" y="0">r</tspan><tspan class="cls-5" x="2.35" y="0">igger</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
