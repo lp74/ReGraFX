@@ -1,13 +1,14 @@
 // Rollup plugins
 import babel from 'rollup-plugin-babel';
+import typescript from 'rollup-plugin-typescript';
 
 export default {
-  entry: 'src/regrafx.es6.js',
-  dest: 'dist/umd/regrafx.rgfx.js',
-  format: 'umd',
-  moduleName: 'RGFX',
-  sourceMap: true,
+  input: 'src/regrafx.es6.js',
+  output: [
+    { file: 'dist/umd/regrafx.rgfx.js', name: 'RGFX', format: 'umd', sourcemap: true },
+  ],
   plugins: [
+    typescript(),
     babel({
       exclude: 'node_modules/**',
     }),
