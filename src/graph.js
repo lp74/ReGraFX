@@ -1,6 +1,6 @@
-import { Vertex } from './vertex.js';
+import { Vertex } from './vertex';
 import { Task } from './task.js';
-import { Scheduler } from './scheduler.js';
+import { Scheduler } from './schedulers/scheduler';
 
 export class Graph {
   constructor() {

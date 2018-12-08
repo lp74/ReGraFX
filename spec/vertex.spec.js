@@ -1,6 +1,6 @@
-import { Vertex } from '../src/vertex.js';
+import { Vertex } from '../src/vertex';
 import { Task } from '../src/task.js';
-import { Scheduler } from '../src/scheduler.js';
+import { Scheduler } from '../src/schedulers/scheduler';
 
 describe('Vertex', () => {
   it('should call task execute', done => {

@@ -1,6 +1,6 @@
 import { Observable } from './observable.js';
 import { Observer } from './observer.js';
-import { Scheduler } from './scheduler.js';
+import { Scheduler } from './schedulers/scheduler';
 import { Message } from './message.js';
 import { Task } from './task.js';
 export class Vertex {
