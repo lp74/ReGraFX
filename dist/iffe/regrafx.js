@@ -23,6 +23,68 @@ var RGFX = (function (exports) {
     return Constructor;
   }
 
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) _setPrototypeOf(subClass, superClass);
+  }
+
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (typeof call === "object" || typeof call === "function")) {
+      return call;
+    }
+
+    return _assertThisInitialized(self);
+  }
+
   var Subscription = function Subscription(obj) {
     _classCallCheck(this, Subscription);
 
@@ -168,46 +230,66 @@ var RGFX = (function (exports) {
     return Observer;
   }();
 
+  var AbstractScheduler = function AbstractScheduler() {
+    var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+    _classCallCheck(this, AbstractScheduler);
+
+    _defineProperty(this, "$$delay", void 0);
+
+    this.$$delay = delay;
+  };
+
   var Scheduler =
   /*#__PURE__*/
-  function () {
+  function (_AbstractScheduler) {
+    _inherits(Scheduler, _AbstractScheduler);
+
     function Scheduler() {
+      var _this;
+
       var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var pauser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Observable();
 
       _classCallCheck(this, Scheduler);
 
-      this._delay = delay;
-      this._pause = 0;
-      this._pauser = pauser;
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Scheduler).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pause", void 0);
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pauser", void 0);
+
+      _this.$$pause = false;
+      _this.$$pauser = pauser;
+      return _this;
     }
 
     _createClass(Scheduler, [{
       key: "schedule",
       value: function schedule() {
-        var _this = this;
+        var _this2 = this;
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
           setTimeout(function () {
-            _this.isRunning() ? resolve() : _this._pauser.subscribe(function (x) {
-              _this._pause = x;
+            _this2.isRunning() ? resolve() : _this2.$$pauser.subscribe(function (pause) {
+              _this2.$$pause = pause;
 
-              if (_this.isRunning()) {
+              if (_this2.isRunning()) {
                 resolve();
               }
             });
-          }, _this._delay);
+          }, _this2.$$delay);
         });
       }
     }, {
       key: "isRunning",
       value: function isRunning() {
-        return !this._pause;
+        return !this.$$pause;
       }
     }]);
 
     return Scheduler;
-  }();
+  }(AbstractScheduler);
 
   var Token =
   /*#__PURE__*/
@@ -443,6 +525,88 @@ var RGFX = (function (exports) {
 
     return Graph;
   }();
+
+  var Debounce =
+  /*#__PURE__*/
+  function (_AbstractScheduler) {
+    _inherits(Debounce, _AbstractScheduler);
+
+    function Debounce() {
+      var _this;
+
+      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      _classCallCheck(this, Debounce);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Debounce).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
+
+      _this.$$timerId = null;
+      return _this;
+    }
+
+    _createClass(Debounce, [{
+      key: "schedule",
+      value: function schedule() {
+        var _this2 = this;
+
+        return new Promise(function (resolve) {
+          if (_this2.$$timerId) {
+            clearTimeout(_this2.$$timerId);
+          }
+
+          _this2.$$timerId = setTimeout(function () {
+            _this2.$$timerId = null;
+            resolve();
+          }, _this2.$$delay);
+        });
+      }
+    }]);
+
+    return Debounce;
+  }(AbstractScheduler);
+
+  var Throttle =
+  /*#__PURE__*/
+  function (_AbstractScheduler) {
+    _inherits(Throttle, _AbstractScheduler);
+
+    function Throttle() {
+      var _this;
+
+      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      _classCallCheck(this, Throttle);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Throttle).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
+
+      _this.$$timerId = null;
+      return _this;
+    }
+
+    _createClass(Throttle, [{
+      key: "schedule",
+      value: function schedule() {
+        var _this2 = this;
+
+        return new Promise(function (resolve, reject) {
+          if (_this2.$$timerId) {
+            reject();
+          } else {
+            _this2.$$timerId = setTimeout(function () {
+              _this2.$$timerId = null;
+            }, _this2.$$delay);
+            resolve();
+          }
+        });
+      }
+    }]);
+
+    return Throttle;
+  }(AbstractScheduler);
 
   var CompositeVertex =
   /*#__PURE__*/
@@ -738,7 +902,7 @@ var RGFX = (function (exports) {
     }
   }
 
-  /* REactive GRAph FluX ReGraFX.js */
+  /* REactive GRAph FluX ReGraFX */
   var Search = {
     dfs: dfs,
     dfsGraph: dfsGraph
@@ -748,6 +912,8 @@ var RGFX = (function (exports) {
   exports.Vertex = Vertex;
   exports.Task = Task;
   exports.Scheduler = Scheduler;
+  exports.Debounce = Debounce;
+  exports.Throttle = Throttle;
   exports.Message = Message;
   exports.Observable = Observable;
   exports.Observer = Observer;
