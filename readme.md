@@ -90,6 +90,8 @@ The Scheduler has the ability to **cancel** the task execution by mean of a toke
 -   The delayed schedule executes after the required time.
 -   The pause schedule pauses until required.
     The listed schedulers are just examples. There can be other schedulers.
+-   The ```Debounce``` schedule debounces task execution; 
+-   The ```Throttle``` schedule throttles task execution; 
 
 ```js
 const aFunction = x => 2 * x; 
@@ -103,6 +105,15 @@ To cancel:
 const message = vertex.trigger();
 message.token().cancel();
 ```
+
+```js
+// Debounce: calls fn after 500 ms since the last trigger
+const debounced = new Vertex(new Task(fn), new Debounce(500));
+
+// Throttle: calls fn once per 500 ms
+const throttled = new Vertex(new Task(fn), new Throttle(500));
+```
+
 
 <a name = "visual"></a> 
 ### Visually 
