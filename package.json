@@ -1,7 +1,11 @@
 {
   "name": "regrafx",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Reactive Graph Flux",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lp74/ReGraFX.git"
+  },
   "main": "dist/regrafx.js",
   "module": "src/regrafx.es6.js",
   "scripts": {
