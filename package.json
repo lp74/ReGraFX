@@ -1,10 +1,10 @@
 {
   "name": "regrafx",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.1-alpha.4",
   "description": "Reactive Graph Flux",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lp74/ReGraFX.git"
+    "type": "git",
+    "url": "https://github.com/lp74/ReGraFX.git"
   },
   "main": "dist/regrafx.js",
   "module": "src/regrafx.es6.js",
@@ -19,6 +19,9 @@
   },
   "author": "Luca Polverini",
   "license": "ISC",
+  "dependencies": {
+    "core-js": "^2.6.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.40",
     "@babel/core": "^7.0.0-beta.40",
