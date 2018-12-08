@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "commonjs",
-    "target": "es5",
+    "target": "esnext",
     "declaration": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -11,7 +11,8 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "noUnusedParameters": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true
   },
   "exclude": ["node_modules"]
 }

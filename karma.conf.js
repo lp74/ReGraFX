@@ -23,11 +23,19 @@ module.exports = function (config) {
       module: {
         rules: [
           {
-            test: /\.js$/,
+            test: /\.tsx?$/,
+            use: 'babel-loader',
+            exclude: /node_modules/
+          },
+          {
+            test: /\.jsx$/,
             loader: 'babel-loader',
-            query: { presets: ['@babel/preset-env'] }
+            exclude: /node_modules/
           }
         ]
+      },
+      resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.jsx']
       }
     },
     webpackMiddleware: {
