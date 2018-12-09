@@ -109,11 +109,13 @@ message.token().cancel();
 ```js
 // Debounce: calls fn after 500 ms since the last trigger
 const debounced = new Vertex(new Task(fn), new Debounce(500));
+```
+[Debounce JSFiddle](https://jsfiddle.net/lucapolverini74/9ato5c8m)
 
+```js
 // Throttle: calls fn once per 500 ms
 const throttled = new Vertex(new Task(fn), new Throttle(500));
 ```
-
 
 <a name = "visual"></a> 
 ### Visually 
