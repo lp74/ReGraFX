@@ -212,12 +212,10 @@ var RGFX = (function (exports) {
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
         return undefined;
       };
-      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Linked Observer';
 
       _classCallCheck(this, Observer);
 
       this._fn = fn;
-      this._name = name;
     }
 
     _createClass(Observer, [{
@@ -394,6 +392,7 @@ var RGFX = (function (exports) {
 
       _classCallCheck(this, Vertex);
 
+      this.$$id = Symbol(name);
       this.$$task = task;
       this.$$scheduler = scheduler;
       this.$$name = name;
@@ -403,7 +402,7 @@ var RGFX = (function (exports) {
       this.$$observable = new Observable();
       var boundVertexFn = this.$$next.bind(this);
       boundVertexFn.boundVertex = this;
-      this.$$observer = new Observer(boundVertexFn, this.$$name);
+      this.$$observer = new Observer(boundVertexFn);
     }
 
     _createClass(Vertex, [{
@@ -439,7 +438,7 @@ var RGFX = (function (exports) {
       value: function trigger() {
         var _this$$$observer;
 
-        var msg = new Message();
+        var msg = new Message(this.$$id);
 
         for (var _len = arguments.length, input = new Array(_len), _key = 0; _key < _len; _key++) {
           input[_key] = arguments[_key];
@@ -469,11 +468,11 @@ var RGFX = (function (exports) {
             var promise = (_this$$$task = _this.$$task).execute.apply(_this$$$task, input);
 
             promise.then(function (out) {
-              msg.sign(_this.$$name);
+              msg.sign(_this.$$id);
 
               _this.$$thenObservers.notify(out, msg);
             }).catch(function (err) {
-              msg.sign(_this.$$name);
+              msg.sign(_this.$$id);
 
               _this.$$catchObservers.notify(err, msg);
             }).finally(function () {
@@ -487,43 +486,6 @@ var RGFX = (function (exports) {
     }]);
 
     return Vertex;
-  }();
-
-  var Graph =
-  /*#__PURE__*/
-  function () {
-    function Graph() {
-      _classCallCheck(this, Graph);
-
-      this.$$vertices = {};
-    }
-
-    _createClass(Graph, [{
-      key: "addVertex",
-      value: function addVertex(id) {
-        var task = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Task();
-        var scheduler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Scheduler();
-
-        if (this.$$vertices[id]) {
-          throw new Error('Duplicated vertex entry');
-        }
-
-        this.$$vertices[id] = new Vertex(task, scheduler, id);
-        return this.$$vertices[id];
-      }
-    }, {
-      key: "order",
-      value: function order() {
-        return Object.keys(this.$$vertices).length + Object.getOwnPropertySymbols(this.$$vertices).length;
-      }
-    }, {
-      key: "vertex",
-      value: function vertex(id) {
-        return this.$$vertices[id];
-      }
-    }]);
-
-    return Graph;
   }();
 
   var Debounce =
@@ -908,7 +870,6 @@ var RGFX = (function (exports) {
     dfsGraph: dfsGraph
   };
 
-  exports.Graph = Graph;
   exports.Vertex = Vertex;
   exports.Task = Task;
   exports.Scheduler = Scheduler;

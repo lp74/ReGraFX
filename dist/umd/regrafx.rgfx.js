@@ -4,140 +4,15 @@
   (factory((global.RGFX = {})));
 }(this, (function (exports) { 'use strict';
 
-  var $iterators = require('./es6.array.iterator');
-  var getKeys = require('./_object-keys');
-  var redefine = require('./_redefine');
-  var global = require('./_global');
-  var hide = require('./_hide');
-  var Iterators = require('./_iterators');
-  var wks = require('./_wks');
-  var ITERATOR = wks('iterator');
-  var TO_STRING_TAG = wks('toStringTag');
-  var ArrayValues = Iterators.Array;
-
-  var DOMIterables = {
-    CSSRuleList: true, // TODO: Not spec compliant, should be false.
-    CSSStyleDeclaration: false,
-    CSSValueList: false,
-    ClientRectList: false,
-    DOMRectList: false,
-    DOMStringList: false,
-    DOMTokenList: true,
-    DataTransferItemList: false,
-    FileList: false,
-    HTMLAllCollection: false,
-    HTMLCollection: false,
-    HTMLFormElement: false,
-    HTMLSelectElement: false,
-    MediaList: true, // TODO: Not spec compliant, should be false.
-    MimeTypeArray: false,
-    NamedNodeMap: false,
-    NodeList: true,
-    PaintRequestList: false,
-    Plugin: false,
-    PluginArray: false,
-    SVGLengthList: false,
-    SVGNumberList: false,
-    SVGPathSegList: false,
-    SVGPointList: false,
-    SVGStringList: false,
-    SVGTransformList: false,
-    SourceBufferList: false,
-    StyleSheetList: true, // TODO: Not spec compliant, should be false.
-    TextTrackCueList: false,
-    TextTrackList: false,
-    TouchList: false
-  };
-
-  for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
-    var NAME = collections[i];
-    var explicit = DOMIterables[NAME];
-    var Collection = global[NAME];
-    var proto = Collection && Collection.prototype;
-    var key;
-    if (proto) {
-      if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
-      if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-      Iterators[NAME] = ArrayValues;
-      if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
-    }
-  }
-
-  var addToUnscopables = require('./_add-to-unscopables');
-  var step = require('./_iter-step');
-  var Iterators$1 = require('./_iterators');
-  var toIObject = require('./_to-iobject');
-
-  // 22.1.3.4 Array.prototype.entries()
-  // 22.1.3.13 Array.prototype.keys()
-  // 22.1.3.29 Array.prototype.values()
-  // 22.1.3.30 Array.prototype[@@iterator]()
-  module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
-    this._t = toIObject(iterated); // target
-    this._i = 0;                   // next index
-    this._k = kind;                // kind
-  // 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-  }, function () {
-    var O = this._t;
-    var kind = this._k;
-    var index = this._i++;
-    if (!O || index >= O.length) {
-      this._t = undefined;
-      return step(1);
-    }
-    if (kind == 'keys') return step(0, index);
-    if (kind == 'values') return step(0, O[index]);
-    return step(0, [index, O[index]]);
-  }, 'values');
-
-  // argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-  Iterators$1.Arguments = Iterators$1.Array;
-
-  addToUnscopables('keys');
-  addToUnscopables('values');
-  addToUnscopables('entries');
-
-  // 19.1.2.14 Object.keys(O)
-  var toObject = require('./_to-object');
-  var $keys = require('./_object-keys');
-
-  require('./_object-sap')('keys', function () {
-    return function keys(it) {
-      return $keys(toObject(it));
-    };
-  });
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
   // https://github.com/tc39/proposal-promise-finally
   var $export = require('./_export');
   var core = require('./_core');
-  var global$1 = require('./_global');
+  var global = require('./_global');
   var speciesConstructor = require('./_species-constructor');
   var promiseResolve = require('./_promise-resolve');
 
   $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-    var C = speciesConstructor(this, core.Promise || global$1.Promise);
+    var C = speciesConstructor(this, core.Promise || global.Promise);
     var isFunction = typeof onFinally == 'function';
     return this.then(
       isFunction ? function (x) {
@@ -157,47 +32,47 @@
   require('./_wks-define')('asyncIterator');
 
   // ECMAScript 6 symbols shim
-  var global$2 = require('./_global');
+  var global$1 = require('./_global');
   var has = require('./_has');
   var DESCRIPTORS = require('./_descriptors');
   var $export$2 = require('./_export');
-  var redefine$1 = require('./_redefine');
+  var redefine = require('./_redefine');
   var META = require('./_meta').KEY;
   var $fails = require('./_fails');
   var shared = require('./_shared');
   var setToStringTag = require('./_set-to-string-tag');
   var uid = require('./_uid');
-  var wks$1 = require('./_wks');
+  var wks = require('./_wks');
   var wksExt = require('./_wks-ext');
   var wksDefine = require('./_wks-define');
   var enumKeys = require('./_enum-keys');
   var isArray = require('./_is-array');
   var anObject = require('./_an-object');
   var isObject = require('./_is-object');
-  var toIObject$1 = require('./_to-iobject');
+  var toIObject = require('./_to-iobject');
   var toPrimitive = require('./_to-primitive');
   var createDesc = require('./_property-desc');
   var _create = require('./_object-create');
   var gOPNExt = require('./_object-gopn-ext');
   var $GOPD = require('./_object-gopd');
   var $DP = require('./_object-dp');
-  var $keys$1 = require('./_object-keys');
+  var $keys = require('./_object-keys');
   var gOPD = $GOPD.f;
   var dP = $DP.f;
   var gOPN = gOPNExt.f;
-  var $Symbol = global$2.Symbol;
-  var $JSON = global$2.JSON;
+  var $Symbol = global$1.Symbol;
+  var $JSON = global$1.JSON;
   var _stringify = $JSON && $JSON.stringify;
   var PROTOTYPE = 'prototype';
-  var HIDDEN = wks$1('_hidden');
-  var TO_PRIMITIVE = wks$1('toPrimitive');
+  var HIDDEN = wks('_hidden');
+  var TO_PRIMITIVE = wks('toPrimitive');
   var isEnum = {}.propertyIsEnumerable;
   var SymbolRegistry = shared('symbol-registry');
   var AllSymbols = shared('symbols');
   var OPSymbols = shared('op-symbols');
   var ObjectProto = Object[PROTOTYPE];
   var USE_NATIVE = typeof $Symbol == 'function';
-  var QObject = global$2.QObject;
+  var QObject = global$1.QObject;
   // Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
   var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
 
@@ -242,7 +117,7 @@
   };
   var $defineProperties = function defineProperties(it, P) {
     anObject(it);
-    var keys = enumKeys(P = toIObject$1(P));
+    var keys = enumKeys(P = toIObject(P));
     var i = 0;
     var l = keys.length;
     var key;
@@ -258,7 +133,7 @@
     return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
   };
   var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-    it = toIObject$1(it);
+    it = toIObject(it);
     key = toPrimitive(key, true);
     if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
     var D = gOPD(it, key);
@@ -266,7 +141,7 @@
     return D;
   };
   var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-    var names = gOPN(toIObject$1(it));
+    var names = gOPN(toIObject(it));
     var result = [];
     var i = 0;
     var key;
@@ -276,7 +151,7 @@
   };
   var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
     var IS_OP = it === ObjectProto;
-    var names = gOPN(IS_OP ? OPSymbols : toIObject$1(it));
+    var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
     var result = [];
     var i = 0;
     var key;
@@ -298,7 +173,7 @@
       if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
       return wrap(tag);
     };
-    redefine$1($Symbol[PROTOTYPE], 'toString', function toString() {
+    redefine($Symbol[PROTOTYPE], 'toString', function toString() {
       return this._k;
     });
 
@@ -309,11 +184,11 @@
     require('./_object-gops').f = $getOwnPropertySymbols;
 
     if (DESCRIPTORS && !require('./_library')) {
-      redefine$1(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+      redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
     }
 
     wksExt.f = function (name) {
-      return wrap(wks$1(name));
+      return wrap(wks(name));
     };
   }
 
@@ -322,9 +197,9 @@
   for (var es6Symbols = (
     // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
     'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-  ).split(','), j = 0; es6Symbols.length > j;)wks$1(es6Symbols[j++]);
+  ).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
 
-  for (var wellKnownSymbols = $keys$1(wks$1.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+  for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
 
   $export$2($export$2.S + $export$2.F * !USE_NATIVE, 'Symbol', {
     // 19.4.2.1 Symbol.for(key)
@@ -388,7 +263,88 @@
   // 20.2.1.9 Math[@@toStringTag]
   setToStringTag(Math, 'Math', true);
   // 24.3.3 JSON[@@toStringTag]
-  setToStringTag(global$2.JSON, 'JSON', true);
+  setToStringTag(global$1.JSON, 'JSON', true);
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  var $iterators = require('./es6.array.iterator');
+  var getKeys = require('./_object-keys');
+  var redefine$1 = require('./_redefine');
+  var global$2 = require('./_global');
+  var hide = require('./_hide');
+  var Iterators = require('./_iterators');
+  var wks$1 = require('./_wks');
+  var ITERATOR = wks$1('iterator');
+  var TO_STRING_TAG = wks$1('toStringTag');
+  var ArrayValues = Iterators.Array;
+
+  var DOMIterables = {
+    CSSRuleList: true, // TODO: Not spec compliant, should be false.
+    CSSStyleDeclaration: false,
+    CSSValueList: false,
+    ClientRectList: false,
+    DOMRectList: false,
+    DOMStringList: false,
+    DOMTokenList: true,
+    DataTransferItemList: false,
+    FileList: false,
+    HTMLAllCollection: false,
+    HTMLCollection: false,
+    HTMLFormElement: false,
+    HTMLSelectElement: false,
+    MediaList: true, // TODO: Not spec compliant, should be false.
+    MimeTypeArray: false,
+    NamedNodeMap: false,
+    NodeList: true,
+    PaintRequestList: false,
+    Plugin: false,
+    PluginArray: false,
+    SVGLengthList: false,
+    SVGNumberList: false,
+    SVGPathSegList: false,
+    SVGPointList: false,
+    SVGStringList: false,
+    SVGTransformList: false,
+    SourceBufferList: false,
+    StyleSheetList: true, // TODO: Not spec compliant, should be false.
+    TextTrackCueList: false,
+    TextTrackList: false,
+    TouchList: false
+  };
+
+  for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
+    var NAME = collections[i];
+    var explicit = DOMIterables[NAME];
+    var Collection = global$2[NAME];
+    var proto = Collection && Collection.prototype;
+    var key;
+    if (proto) {
+      if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
+      if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+      Iterators[NAME] = ArrayValues;
+      if (explicit) for (key in $iterators) if (!proto[key]) redefine$1(proto, key, $iterators[key], true);
+    }
+  }
 
   var $export$3 = require('./_export');
   var $map = require('./_array-methods')(1);
@@ -527,12 +483,10 @@
       var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
         return undefined;
       };
-      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Linked Observer';
 
       _classCallCheck(this, Observer);
 
       this._fn = fn;
-      this._name = name;
     }
 
     _createClass(Observer, [{
@@ -970,6 +924,7 @@
 
       _classCallCheck(this, Vertex);
 
+      this.$$id = Symbol(name);
       this.$$task = task;
       this.$$scheduler = scheduler;
       this.$$name = name;
@@ -979,7 +934,7 @@
       this.$$observable = new Observable();
       var boundVertexFn = this.$$next.bind(this);
       boundVertexFn.boundVertex = this;
-      this.$$observer = new Observer(boundVertexFn, this.$$name);
+      this.$$observer = new Observer(boundVertexFn);
     }
 
     _createClass(Vertex, [{
@@ -1015,7 +970,7 @@
       value: function trigger() {
         var _this$$$observer;
 
-        var msg = new Message();
+        var msg = new Message(this.$$id);
 
         for (var _len = arguments.length, input = new Array(_len), _key = 0; _key < _len; _key++) {
           input[_key] = arguments[_key];
@@ -1045,11 +1000,11 @@
             var promise = (_this$$$task = _this.$$task).execute.apply(_this$$$task, input);
 
             promise.then(function (out) {
-              msg.sign(_this.$$name);
+              msg.sign(_this.$$id);
 
               _this.$$thenObservers.notify(out, msg);
             }).catch(function (err) {
-              msg.sign(_this.$$name);
+              msg.sign(_this.$$id);
 
               _this.$$catchObservers.notify(err, msg);
             }).finally(function () {
@@ -1063,43 +1018,6 @@
     }]);
 
     return Vertex;
-  }();
-
-  var Graph =
-  /*#__PURE__*/
-  function () {
-    function Graph() {
-      _classCallCheck(this, Graph);
-
-      this.$$vertices = {};
-    }
-
-    _createClass(Graph, [{
-      key: "addVertex",
-      value: function addVertex(id) {
-        var task = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Task();
-        var scheduler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Scheduler();
-
-        if (this.$$vertices[id]) {
-          throw new Error('Duplicated vertex entry');
-        }
-
-        this.$$vertices[id] = new Vertex(task, scheduler, id);
-        return this.$$vertices[id];
-      }
-    }, {
-      key: "order",
-      value: function order() {
-        return Object.keys(this.$$vertices).length + Object.getOwnPropertySymbols(this.$$vertices).length;
-      }
-    }, {
-      key: "vertex",
-      value: function vertex(id) {
-        return this.$$vertices[id];
-      }
-    }]);
-
-    return Graph;
   }();
 
   class Debounce extends AbstractScheduler {
@@ -1456,7 +1374,6 @@
   };
 
   var regrafx = /*#__PURE__*/Object.freeze({
-    Graph: Graph,
     Vertex: Vertex,
     Task: Task,
     Scheduler: Scheduler,
