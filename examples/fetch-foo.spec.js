@@ -1,7 +1,6 @@
 import { RGFX } from '../src/regrafx.es6';
 
 import { fetchMock } from 'fetch-mock';
-import { Graph } from '../src/graph';
 
 describe('Fetch Foo', () => {
   it('RGFX', () => {

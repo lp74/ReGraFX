@@ -1,6 +1,5 @@
 /* REactive GRAph FluX ReGraFX */
 
-import { Graph } from './graph';
 import { Vertex } from './vertex';
 import { Task } from './task';
 import { Scheduler } from './schedulers/scheduler';
@@ -18,7 +17,6 @@ const Search = {
 };
 
 export {
-  Graph,
   Vertex,
   Task,
   Scheduler,
