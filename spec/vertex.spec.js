@@ -87,9 +87,9 @@ describe('Vertex', () => {
     }, 200);
   });
   it('should cancel', (done) => {
-    const vs1 = new Vertex(new Task(() => 2), undefined, 'A');
-    const vs2 = new Vertex(new Task(() => 2), undefined, 'B');
-    const vs3 = new Vertex(new Task(() => 3), undefined, 'C');
+    const vs1 = new Vertex(new Task(() => 2));
+    const vs2 = new Vertex(new Task(() => 2));
+    const vs3 = new Vertex(new Task(() => 3));
 
     vs1.to(vs2);
     vs2.to(vs3);
@@ -97,7 +97,7 @@ describe('Vertex', () => {
     const msg = vs1.trigger();
 
     vs3.subscribe(p => {
-      expect(msg.$$signatures).toEqual(['A', 'B']);
+      expect(msg.$$signatures).toEqual([vs1.$$id, vs2.$$id]);
       done();
     }
     );

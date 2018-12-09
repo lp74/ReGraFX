@@ -5,6 +5,7 @@ import { Message } from './message.js';
 import { Task } from './task.js';
 export class Vertex {
   constructor(task = new Task(), scheduler = new Scheduler(), name = 'Vertex') {
+    this.$$id = Symbol(name);
     this.$$task = task;
     this.$$scheduler = scheduler;
     this.$$name = name;
@@ -16,7 +17,7 @@ export class Vertex {
 
     const boundVertexFn = this.$$next.bind(this);
     boundVertexFn.boundVertex = this;
-    this.$$observer = new Observer(boundVertexFn, this.$$name);
+    this.$$observer = new Observer(boundVertexFn);
   }
   $observer() {return this.$$observer;}
   to(vertex) {
@@ -37,7 +38,7 @@ export class Vertex {
   }
 
   trigger(...input) {
-    const msg = new Message();
+    const msg = new Message(this.$$id);
     input.push(msg);
     this.$$observer.next(...input);
     return msg;
@@ -50,11 +51,11 @@ export class Vertex {
           const promise = this.$$task.execute(...input);
           promise
             .then(out => {
-              msg.sign(this.$$name);
+              msg.sign(this.$$id);
               this.$$thenObservers.notify(out, msg);
             })
             .catch(err => {
-              msg.sign(this.$$name);
+              msg.sign(this.$$id);
               this.$$catchObservers.notify(err, msg);
             })
             .finally(() => {
