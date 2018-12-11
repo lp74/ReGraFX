@@ -1,6 +1,6 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('core-js/modules/es7.promise.finally'), require('core-js/modules/es6.function.bind'), require('core-js/modules/es6.date.now'), require('core-js/modules/es6.promise'), require('core-js/modules/es6.array.map'), require('core-js/modules/es6.array.index-of'), require('core-js/modules/es7.symbol.async-iterator'), require('core-js/modules/es6.symbol'), require('core-js/modules/web.dom.iterable')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'core-js/modules/es7.promise.finally', 'core-js/modules/es6.function.bind', 'core-js/modules/es6.date.now', 'core-js/modules/es6.promise', 'core-js/modules/es6.array.map', 'core-js/modules/es6.array.index-of', 'core-js/modules/es7.symbol.async-iterator', 'core-js/modules/es6.symbol', 'core-js/modules/web.dom.iterable'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('core-js/modules/es6.date.now'), require('core-js/modules/web.dom.iterable'), require('core-js/modules/es7.promise.finally'), require('core-js/modules/es6.function.bind'), require('core-js/modules/es7.symbol.async-iterator'), require('core-js/modules/es6.symbol'), require('core-js/modules/es6.promise'), require('core-js/modules/es6.array.index-of'), require('core-js/modules/es6.array.map')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'core-js/modules/es6.date.now', 'core-js/modules/web.dom.iterable', 'core-js/modules/es7.promise.finally', 'core-js/modules/es6.function.bind', 'core-js/modules/es7.symbol.async-iterator', 'core-js/modules/es6.symbol', 'core-js/modules/es6.promise', 'core-js/modules/es6.array.index-of', 'core-js/modules/es6.array.map'], factory) :
   (factory((global.RGFX = {})));
 }(this, (function (exports) { 'use strict';
 
@@ -88,491 +88,6 @@
     return _assertThisInitialized(self);
   }
 
-  var Subscription = function Subscription(obj) {
-    _classCallCheck(this, Subscription);
-
-    this.id = Symbol();
-    this.unsubscribe = obj.unsubscribe.bind(obj, this.id);
-  };
-
-  var Subscribers =
-  /*#__PURE__*/
-  function () {
-    function Subscribers() {
-      _classCallCheck(this, Subscribers);
-
-      this._subscribers = {};
-    }
-
-    _createClass(Subscribers, [{
-      key: "subscribe",
-      value: function subscribe(obj) {
-        var subscription = new Subscription(this);
-        this._subscribers[subscription.id] = obj;
-        return subscription;
-      }
-    }, {
-      key: "unsubscribe",
-      value: function unsubscribe(id) {
-        delete this._subscribers[id];
-      }
-    }, {
-      key: "size",
-      value: function size() {
-        return this.ids().length;
-      }
-    }, {
-      key: "ids",
-      value: function ids() {
-        return Object.getOwnPropertySymbols(this._subscribers);
-      }
-    }, {
-      key: "get",
-      value: function get(id) {
-        return this._subscribers[id];
-      }
-    }, {
-      key: "set",
-      value: function set(obj) {
-        this._subscribers[id] = obj;
-      }
-    }, {
-      key: "iterable",
-      value: function iterable() {
-        var _this = this;
-
-        return Object.getOwnPropertySymbols(this._subscribers).map(function (s) {
-          return _this._subscribers[s];
-        });
-      }
-    }]);
-
-    return Subscribers;
-  }();
-
-  var Observable =
-  /*#__PURE__*/
-  function () {
-    function Observable() {
-      var subscribers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Subscribers();
-
-      _classCallCheck(this, Observable);
-
-      this.$$observers = subscribers;
-    }
-
-    _createClass(Observable, [{
-      key: "subscribe",
-      value: function subscribe(observer) {
-        return this.observers().subscribe(observer);
-      }
-    }, {
-      key: "observers",
-      value: function observers() {
-        return this.$$observers;
-      }
-    }, {
-      key: "unsubscribe",
-      value: function unsubscribe(id) {
-        this.observers().unsubscribe(id);
-      }
-    }, {
-      key: "notify",
-      value: function notify() {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = this.observers().iterable()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var observer = _step.value;
-            observer.next.apply(observer, arguments);
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-      }
-    }]);
-
-    return Observable;
-  }();
-
-  var Observer =
-  /*#__PURE__*/
-  function () {
-    function Observer() {
-      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
-        return undefined;
-      };
-
-      _classCallCheck(this, Observer);
-
-      this._fn = fn;
-    }
-
-    _createClass(Observer, [{
-      key: "next",
-      value: function next() {
-        return this._fn.apply(this, arguments);
-      }
-    }]);
-
-    return Observer;
-  }();
-
-  var AbstractScheduler = function AbstractScheduler() {
-    var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-    _classCallCheck(this, AbstractScheduler);
-
-    _defineProperty(this, "$$delay", void 0);
-
-    this.$$delay = delay;
-  };
-
-  var Scheduler =
-  /*#__PURE__*/
-  function (_AbstractScheduler) {
-    _inherits(Scheduler, _AbstractScheduler);
-
-    function Scheduler() {
-      var _this;
-
-      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var pauser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Observable();
-
-      _classCallCheck(this, Scheduler);
-
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Scheduler).call(this, delay));
-
-      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pause", void 0);
-
-      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pauser", void 0);
-
-      _this.$$pause = false;
-      _this.$$pauser = pauser;
-      return _this;
-    }
-
-    _createClass(Scheduler, [{
-      key: "schedule",
-      value: function schedule() {
-        var _this2 = this;
-
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            _this2.isRunning() ? resolve() : _this2.$$pauser.subscribe(function (pause) {
-              _this2.$$pause = pause;
-
-              if (_this2.isRunning()) {
-                resolve();
-              }
-            });
-          }, _this2.$$delay);
-        });
-      }
-    }, {
-      key: "isRunning",
-      value: function isRunning() {
-        return !this.$$pause;
-      }
-    }]);
-
-    return Scheduler;
-  }(AbstractScheduler);
-
-  var Token =
-  /*#__PURE__*/
-  function () {
-    function Token() {
-      _classCallCheck(this, Token);
-
-      this.$$symbol = Symbol();
-      this.$$date = Date.now();
-      this.$$cancelled = false;
-    }
-
-    _createClass(Token, [{
-      key: "cancel",
-      value: function cancel() {
-        this.$$cancelled = true;
-      }
-    }]);
-
-    return Token;
-  }();
-
-  var Message =
-  /*#__PURE__*/
-  function () {
-    function Message(origin) {
-      _classCallCheck(this, Message);
-
-      this.$$origin = origin;
-      this.$$date = Date.now();
-      this.$$token = new Token();
-      this.$$subject = null;
-      this.$$signatures = [];
-    }
-
-    _createClass(Message, [{
-      key: "subject",
-      value: function subject(_subject) {
-        this.$$subject = _subject;
-        return this;
-      }
-    }, {
-      key: "sign",
-      value: function sign(signature) {
-        this.$$signatures.push(signature);
-        return this;
-      }
-    }, {
-      key: "token",
-      value: function token() {
-        return this.$$token;
-      }
-    }]);
-
-    return Message;
-  }();
-  Message.$$name = 'ReGraFX.Message';
-
-  function isFunction(value) {
-    return typeof value === 'function' || false;
-  }
-  function isPromise(p) {
-    return p && isFunction(p.then);
-  }
-
-  var Task =
-  /*#__PURE__*/
-  function () {
-    function Task() {
-      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
-        return null;
-      };
-
-      _classCallCheck(this, Task);
-
-      this._fn = fn;
-    }
-
-    _createClass(Task, [{
-      key: "execute",
-      value: function execute() {
-        try {
-          var res = this._fn.apply(this, arguments);
-
-          return isPromise(res) ? res : Promise.resolve(res);
-        } catch (err) {
-          return Promise.reject(err);
-        }
-      }
-    }]);
-
-    return Task;
-  }();
-
-  var Vertex =
-  /*#__PURE__*/
-  function () {
-    function Vertex() {
-      var task = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Task();
-      var scheduler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Scheduler();
-      var name = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Vertex';
-
-      _classCallCheck(this, Vertex);
-
-      this.$$id = Symbol(name);
-      this.$$task = task;
-      this.$$scheduler = scheduler;
-      this.$$name = name;
-      this.$$thenObservers = new Observable();
-      this.$$catchObservers = new Observable();
-      this.$$finallyObservers = new Observable();
-      this.$$observable = new Observable();
-      var boundVertexFn = this.$$next.bind(this);
-      boundVertexFn.boundVertex = this;
-      this.$$observer = new Observer(boundVertexFn);
-    }
-
-    _createClass(Vertex, [{
-      key: "$observer",
-      value: function $observer() {
-        return this.$$observer;
-      }
-    }, {
-      key: "to",
-      value: function to(vertex) {
-        this.$$thenObservers.subscribe(vertex.$observer());
-        return this;
-      }
-    }, {
-      key: "err",
-      value: function err(vertex) {
-        this.$$catchObservers.subscribe(vertex.$observer());
-        return this;
-      }
-    }, {
-      key: "final",
-      value: function final(vertex) {
-        this.$$finallyObservers.subscribe(vertex.$observer());
-        return this;
-      }
-    }, {
-      key: "subscribe",
-      value: function subscribe(fn) {
-        this.$$observable.subscribe(new Observer(fn));
-      }
-    }, {
-      key: "trigger",
-      value: function trigger() {
-        var _this$$$observer;
-
-        var msg = new Message(this.$$id);
-
-        for (var _len = arguments.length, input = new Array(_len), _key = 0; _key < _len; _key++) {
-          input[_key] = arguments[_key];
-        }
-
-        input.push(msg);
-
-        (_this$$$observer = this.$$observer).next.apply(_this$$$observer, input);
-
-        return msg;
-      }
-    }, {
-      key: "$$next",
-      value: function $$next() {
-        var _this = this;
-
-        for (var _len2 = arguments.length, input = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-          input[_key2] = arguments[_key2];
-        }
-
-        var msg = input[input.length - 1];
-
-        if (!msg.token().$$cancelled) {
-          this.$$scheduler.schedule().then(function () {
-            var _this$$$task;
-
-            var promise = (_this$$$task = _this.$$task).execute.apply(_this$$$task, input);
-
-            promise.then(function (out) {
-              msg.sign(_this.$$id);
-
-              _this.$$thenObservers.notify(out, msg);
-            }).catch(function (err) {
-              msg.sign(_this.$$id);
-
-              _this.$$catchObservers.notify(err, msg);
-            }).finally(function () {
-              _this.$$finallyObservers.notify(null, msg);
-            });
-
-            _this.$$observable.notify(promise);
-          });
-        }
-      }
-    }]);
-
-    return Vertex;
-  }();
-
-  var Debounce =
-  /*#__PURE__*/
-  function (_AbstractScheduler) {
-    _inherits(Debounce, _AbstractScheduler);
-
-    function Debounce() {
-      var _this;
-
-      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-      _classCallCheck(this, Debounce);
-
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Debounce).call(this, delay));
-
-      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
-
-      _this.$$timerId = null;
-      return _this;
-    }
-
-    _createClass(Debounce, [{
-      key: "schedule",
-      value: function schedule() {
-        var _this2 = this;
-
-        return new Promise(function (resolve) {
-          if (_this2.$$timerId) {
-            clearTimeout(_this2.$$timerId);
-          }
-
-          _this2.$$timerId = setTimeout(function () {
-            _this2.$$timerId = null;
-            resolve();
-          }, _this2.$$delay);
-        });
-      }
-    }]);
-
-    return Debounce;
-  }(AbstractScheduler);
-
-  var Throttle =
-  /*#__PURE__*/
-  function (_AbstractScheduler) {
-    _inherits(Throttle, _AbstractScheduler);
-
-    function Throttle() {
-      var _this;
-
-      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-      _classCallCheck(this, Throttle);
-
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Throttle).call(this, delay));
-
-      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
-
-      _this.$$timerId = null;
-      return _this;
-    }
-
-    _createClass(Throttle, [{
-      key: "schedule",
-      value: function schedule() {
-        var _this2 = this;
-
-        return new Promise(function (resolve, reject) {
-          if (_this2.$$timerId) {
-            reject();
-          } else {
-            _this2.$$timerId = setTimeout(function () {
-              _this2.$$timerId = null;
-            }, _this2.$$delay);
-            resolve();
-          }
-        });
-      }
-    }]);
-
-    return Throttle;
-  }(AbstractScheduler);
-
   var CompositeVertex =
   /*#__PURE__*/
   function () {
@@ -626,6 +141,57 @@
 
     return CompositeVertex;
   }();
+
+  var AbstractScheduler = function AbstractScheduler() {
+    var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+    _classCallCheck(this, AbstractScheduler);
+
+    _defineProperty(this, "$$delay", void 0);
+
+    this.$$delay = delay;
+  };
+
+  var Debounce =
+  /*#__PURE__*/
+  function (_AbstractScheduler) {
+    _inherits(Debounce, _AbstractScheduler);
+
+    function Debounce() {
+      var _this;
+
+      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      _classCallCheck(this, Debounce);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Debounce).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
+
+      _this.$$timerId = null;
+      return _this;
+    }
+
+    _createClass(Debounce, [{
+      key: "schedule",
+      value: function schedule() {
+        var _this2 = this;
+
+        return new Promise(function (resolve) {
+          if (_this2.$$timerId) {
+            clearTimeout(_this2.$$timerId);
+          }
+
+          _this2.$$timerId = setTimeout(function () {
+            _this2.$$timerId = null;
+            resolve();
+          }, _this2.$$delay);
+        });
+      }
+    }]);
+
+    return Debounce;
+  }(AbstractScheduler);
 
   function dfs(vertex) {
     var visited = [];
@@ -867,22 +433,516 @@
     }
   }
 
+  var identity = function identity(x) {
+    return x;
+  };
+  var noop = function noop() {
+    return undefined;
+  };
+
+  var Token =
+  /*#__PURE__*/
+  function () {
+    function Token() {
+      _classCallCheck(this, Token);
+
+      this.$$symbol = Symbol();
+      this.$$date = Date.now();
+      this.$$cancelled = false;
+    }
+
+    _createClass(Token, [{
+      key: "cancel",
+      value: function cancel() {
+        this.$$cancelled = true;
+      }
+    }]);
+
+    return Token;
+  }();
+
+  var Message =
+  /*#__PURE__*/
+  function () {
+    function Message(origin) {
+      _classCallCheck(this, Message);
+
+      this.$$origin = origin;
+      this.$$date = Date.now();
+      this.$$token = new Token();
+      this.$$subject = null;
+      this.$$signatures = [];
+    }
+
+    _createClass(Message, [{
+      key: "subject",
+      value: function subject(_subject) {
+        this.$$subject = _subject;
+        return this;
+      }
+    }, {
+      key: "sign",
+      value: function sign(signature) {
+        this.$$signatures.push(signature);
+        return this;
+      }
+    }, {
+      key: "token",
+      value: function token() {
+        return this.$$token;
+      }
+    }, {
+      key: "lastSigner",
+      value: function lastSigner() {
+        return this.$$signatures[this.$$signatures.length - 1];
+      }
+    }]);
+
+    return Message;
+  }();
+  Message.$$name = 'ReGraFX.Message';
+
+  var Subscription = function Subscription(obj) {
+    _classCallCheck(this, Subscription);
+
+    this.id = Symbol();
+    this.unsubscribe = obj.unsubscribe.bind(obj, this.id);
+  };
+
+  var Subscribers =
+  /*#__PURE__*/
+  function () {
+    function Subscribers() {
+      _classCallCheck(this, Subscribers);
+
+      this._subscribers = {};
+    }
+
+    _createClass(Subscribers, [{
+      key: "subscribe",
+      value: function subscribe(obj) {
+        var subscription = new Subscription(this);
+        this._subscribers[subscription.id] = obj;
+        return subscription;
+      }
+    }, {
+      key: "unsubscribe",
+      value: function unsubscribe(id) {
+        delete this._subscribers[id];
+      }
+    }, {
+      key: "size",
+      value: function size() {
+        return this.ids().length;
+      }
+    }, {
+      key: "ids",
+      value: function ids() {
+        return Object.getOwnPropertySymbols(this._subscribers);
+      }
+    }, {
+      key: "get",
+      value: function get(id) {
+        return this._subscribers[id];
+      }
+    }, {
+      key: "set",
+      value: function set(obj) {
+        this._subscribers[id] = obj;
+      }
+    }, {
+      key: "iterable",
+      value: function iterable() {
+        var _this = this;
+
+        return Object.getOwnPropertySymbols(this._subscribers).map(function (s) {
+          return _this._subscribers[s];
+        });
+      }
+    }]);
+
+    return Subscribers;
+  }();
+
+  var Observable =
+  /*#__PURE__*/
+  function () {
+    function Observable() {
+      var subscribers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Subscribers();
+
+      _classCallCheck(this, Observable);
+
+      this.$$observers = subscribers;
+    }
+
+    _createClass(Observable, [{
+      key: "subscribe",
+      value: function subscribe(observer) {
+        return this.observers().subscribe(observer);
+      }
+    }, {
+      key: "observers",
+      value: function observers() {
+        return this.$$observers;
+      }
+    }, {
+      key: "unsubscribe",
+      value: function unsubscribe(id) {
+        this.observers().unsubscribe(id);
+      }
+    }, {
+      key: "notify",
+      value: function notify() {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = this.observers().iterable()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var observer = _step.value;
+            observer.next.apply(observer, arguments);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
+    }]);
+
+    return Observable;
+  }();
+
+  var Observer =
+  /*#__PURE__*/
+  function () {
+    function Observer() {
+      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {
+        return undefined;
+      };
+
+      _classCallCheck(this, Observer);
+
+      this._fn = fn;
+    }
+
+    _createClass(Observer, [{
+      key: "next",
+      value: function next() {
+        return this._fn.apply(this, arguments);
+      }
+    }]);
+
+    return Observer;
+  }();
+
+  var Scheduler =
+  /*#__PURE__*/
+  function (_AbstractScheduler) {
+    _inherits(Scheduler, _AbstractScheduler);
+
+    function Scheduler() {
+      var _this;
+
+      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var pauser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Observable();
+
+      _classCallCheck(this, Scheduler);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Scheduler).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pause", void 0);
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$pauser", void 0);
+
+      _this.$$pause = false;
+      _this.$$pauser = pauser;
+      return _this;
+    }
+
+    _createClass(Scheduler, [{
+      key: "schedule",
+      value: function schedule() {
+        var _this2 = this;
+
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            _this2.isRunning() ? resolve() : _this2.$$pauser.subscribe(function (pause) {
+              _this2.$$pause = pause;
+
+              if (_this2.isRunning()) {
+                resolve();
+              }
+            });
+          }, _this2.$$delay);
+        });
+      }
+    }, {
+      key: "isRunning",
+      value: function isRunning() {
+        return !this.$$pause;
+      }
+    }]);
+
+    return Scheduler;
+  }(AbstractScheduler);
+
+  function isFunction(value) {
+    return typeof value === 'function' || false;
+  }
+  function isPromise(p) {
+    return p && isFunction(p.then);
+  }
+
+  var Task =
+  /*#__PURE__*/
+  function () {
+    function Task() {
+      var fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : noop;
+
+      _classCallCheck(this, Task);
+
+      this.$$fn = fn;
+    }
+
+    _createClass(Task, [{
+      key: "execute",
+      value: function execute() {
+        try {
+          var res = this.$$fn.apply(this, arguments);
+          return isPromise(res) ? res : Promise.resolve(res);
+        } catch (err) {
+          return Promise.reject(err);
+        }
+      }
+    }]);
+
+    return Task;
+  }();
+
+  var Throttle =
+  /*#__PURE__*/
+  function (_AbstractScheduler) {
+    _inherits(Throttle, _AbstractScheduler);
+
+    function Throttle() {
+      var _this;
+
+      var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+      _classCallCheck(this, Throttle);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Throttle).call(this, delay));
+
+      _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "$$timerId", void 0);
+
+      _this.$$timerId = null;
+      return _this;
+    }
+
+    _createClass(Throttle, [{
+      key: "schedule",
+      value: function schedule() {
+        var _this2 = this;
+
+        return new Promise(function (resolve, reject) {
+          if (_this2.$$timerId) {
+            reject();
+          } else {
+            _this2.$$timerId = setTimeout(function () {
+              _this2.$$timerId = null;
+            }, _this2.$$delay);
+            resolve();
+          }
+        });
+      }
+    }]);
+
+    return Throttle;
+  }(AbstractScheduler);
+
+  var Vertex =
+  /*#__PURE__*/
+  function () {
+    function Vertex() {
+      var task = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Task();
+      var scheduler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Scheduler();
+      var name = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Vertex';
+
+      _classCallCheck(this, Vertex);
+
+      this.$$id = Symbol(name);
+      this.$$task = task;
+      this.$$scheduler = scheduler;
+      this.$$name = name;
+      this.$$thenObservers = new Observable();
+      this.$$catchObservers = new Observable();
+      this.$$finallyObservers = new Observable();
+      this.$$observable = new Observable();
+      var boundVertexFn = this.$$next.bind(this);
+      boundVertexFn.boundVertex = this;
+      this.$$observer = new Observer(boundVertexFn);
+    }
+
+    _createClass(Vertex, [{
+      key: "$observer",
+      value: function $observer() {
+        return this.$$observer;
+      }
+    }, {
+      key: "to",
+      value: function to(vertex) {
+        this.$$thenObservers.subscribe(vertex.$observer());
+        return this;
+      }
+    }, {
+      key: "err",
+      value: function err(vertex) {
+        this.$$catchObservers.subscribe(vertex.$observer());
+        return this;
+      }
+    }, {
+      key: "final",
+      value: function final(vertex) {
+        this.$$finallyObservers.subscribe(vertex.$observer());
+        return this;
+      }
+    }, {
+      key: "subscribe",
+      value: function subscribe(fn) {
+        this.$$observable.subscribe(new Observer(fn));
+      }
+    }, {
+      key: "trigger",
+      value: function trigger() {
+        var _this$$$observer;
+
+        var msg = new Message(this.$$id);
+
+        for (var _len = arguments.length, input = new Array(_len), _key = 0; _key < _len; _key++) {
+          input[_key] = arguments[_key];
+        }
+
+        input.push(msg);
+
+        (_this$$$observer = this.$$observer).next.apply(_this$$$observer, input);
+
+        return msg;
+      }
+    }, {
+      key: "$$next",
+      value: function $$next() {
+        var _this = this;
+
+        for (var _len2 = arguments.length, input = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          input[_key2] = arguments[_key2];
+        }
+
+        var msg = input[input.length - 1];
+
+        if (!msg.token().$$cancelled) {
+          this.$$scheduler.schedule().then(function () {
+            var _this$$$task;
+
+            var promise = (_this$$$task = _this.$$task).execute.apply(_this$$$task, input);
+
+            promise.then(function (out) {
+              msg.sign(_this.$$id);
+
+              _this.$$thenObservers.notify(out, msg);
+            }).catch(function (err) {
+              msg.sign(_this.$$id);
+
+              _this.$$catchObservers.notify(err, msg);
+            }).finally(function () {
+              _this.$$finallyObservers.notify(null, msg);
+            });
+
+            _this.$$observable.notify(promise);
+          });
+        }
+      }
+    }]);
+
+    return Vertex;
+  }();
+
+  var CombineLatest =
+  /*#__PURE__*/
+  function (_Task) {
+    _inherits(CombineLatest, _Task);
+
+    function CombineLatest() {
+      var _this;
+
+      _classCallCheck(this, CombineLatest);
+
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(CombineLatest).call(this));
+      _this.$$fn = _this.fn;
+
+      for (var _len = arguments.length, vertices = new Array(_len), _key = 0; _key < _len; _key++) {
+        vertices[_key] = arguments[_key];
+      }
+
+      _this.$$vertices = vertices.map(function (v) {
+        return v.$$id;
+      });
+      _this.$$combined = [];
+      _this.$$length = _this.$$vertices.length;
+      _this.$$sum = 0;
+      _this.$$expectSum = _this.$$length * (_this.$$length + 1) / 2;
+      return _this;
+    }
+
+    _createClass(CombineLatest, [{
+      key: "fn",
+      value: function fn(input, message) {
+        var id = message.lastSigner();
+        var index = this.$$vertices.indexOf(id);
+
+        if (index !== -1) {
+          if (this.$$sum < this.$$expectSum) {
+            this.$$sum += index + 1;
+          }
+
+          this.$$combined[index] = input;
+        }
+
+        return this.$$sum === this.$$expectSum ? Promise.resolve(this.$$combined) : Promise.reject(this.$$combined);
+      }
+    }]);
+
+    return CombineLatest;
+  }(Task);
+
   /* REactive GRAph FluX ReGraFX */
   var Search = {
     dfs: dfs,
     dfsGraph: dfsGraph
   };
 
-  exports.Vertex = Vertex;
-  exports.Task = Task;
-  exports.Scheduler = Scheduler;
+  exports.CompositeVertex = CompositeVertex;
   exports.Debounce = Debounce;
-  exports.Throttle = Throttle;
+  exports.identity = identity;
   exports.Message = Message;
+  exports.noop = noop;
   exports.Observable = Observable;
   exports.Observer = Observer;
-  exports.CompositeVertex = CompositeVertex;
+  exports.Scheduler = Scheduler;
   exports.Search = Search;
+  exports.Task = Task;
+  exports.Throttle = Throttle;
+  exports.Vertex = Vertex;
+  exports.CombineLatest = CombineLatest;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1,15 +1,18 @@
 /* REactive GRAph FluX ReGraFX */
 
-import { Vertex } from './vertex';
-import { Task } from './task';
-import { Scheduler } from './schedulers/scheduler';
+import { CompositeVertex } from './composite/composite-vertex';
 import { Debounce } from './schedulers/debounce';
-import { Throttle } from './schedulers/throttle';
+import { dfs, dfsGraph } from './search/dfs';
+import { identity } from './tasks/tasks';
 import { Message } from './message';
+import { noop } from './tasks/tasks';
 import { Observable } from './observable';
 import { Observer } from './observer';
-import { CompositeVertex } from './composite/composite-vertex';
-import { dfs, dfsGraph } from './search/dfs';
+import { Scheduler } from './schedulers/scheduler';
+import { Task } from './task';
+import { Throttle } from './schedulers/throttle';
+import { Vertex } from './vertex';
+import { CombineLatest } from './operators/combine-latest';
 
 const Search = {
   dfs: dfs,
@@ -17,14 +20,17 @@ const Search = {
 };
 
 export {
-  Vertex,
-  Task,
-  Scheduler,
+  CompositeVertex,
   Debounce,
-  Throttle,
+  identity,
   Message,
+  noop,
   Observable,
   Observer,
-  CompositeVertex,
-  Search
+  Scheduler,
+  Search,
+  Task,
+  Throttle,
+  Vertex,
+  CombineLatest
 };

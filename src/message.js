@@ -11,6 +11,7 @@ export class Message {
   subject(subject) { this.$$subject = subject; return this; }
   sign(signature) { this.$$signatures.push(signature); return this; }
   token() {return this.$$token;}
+  lastSigner() {return this.$$signatures[this.$$signatures.length - 1];}
 }
 
 Message.$$name = 'ReGraFX.Message';
