@@ -1,6 +1,6 @@
 {
   "name": "regrafx",
-  "version": "1.1.0-alpha.5",
+  "version": "1.2.0-alpha.5",
   "description": "Reactive Graph Flux",
   "repository": {
     "type": "git",
