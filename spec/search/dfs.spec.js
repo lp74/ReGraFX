@@ -1,6 +1,6 @@
-import {Vertex} from '../../src/vertex.js';
-import {Task} from '../../src/task.js';
-import {dfs, trace} from '../../src/search/dfs.js';
+import { Vertex } from '../../src/vertex.js';
+import { Task } from '../../src/task.js';
+import { dfs, trace } from '../../src/search/dfs.js';
 describe('Search', () => {
   it('dfs', () => {
     const v1 = new Vertex(new Task(x => x), undefined, 'task1');
