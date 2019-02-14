@@ -68,7 +68,7 @@ describe('Composite Vertex', () => {
     v1.to(compVertex);
     compVertex.to(v2);
 
-    v2.subscribe(done);
+    v2.subscribe(() => done());
     v1.trigger(1);
   });
 });

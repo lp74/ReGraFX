@@ -1,4 +1,5 @@
-import {Task} from '../src/task.js';
+import { Task } from '../src/task.js';
+import { fetchMock } from 'fetch-mock';
 
 describe('Task', () => {
   it('should return a function that return a promise if the task is not a promise', done => {
@@ -18,10 +19,15 @@ describe('Task', () => {
   });
 
   it('should return the fn if it is a fetch', done => {
-    const fn = x => fetch('foo');
+    fetchMock.mock(/.*foo$/, { foo: 'bar' });
+    const fn = x => fetch('/foo');
     new Task(fn).execute().then(output => {
-      expect(output instanceof Response).toBe(true);
-      done();
+      output.json().then(data => {
+        expect(data.foo).toEqual('bar');
+        fetchMock.reset();
+        done();
+      }
+      );
     });
   });
 });
