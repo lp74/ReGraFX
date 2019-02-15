@@ -5,7 +5,7 @@
 The power of **Promises**, **Observers** and **Graph** brought together to build a great data Flux.
 
 
-## Why it is called ReGraFX?
+## Why is it called ReGraFX?
 
 -   It uses the ```Observer``` pattern, that's why it is **Re**.active;
 -   It builds a Graph of scheduled async-tasks, that's why it is **Gra**.ph;
@@ -174,7 +174,7 @@ The Fetch API provides an interface for fetching resources. We are going to use 
 
 ### Step 1
 
-The graph describe our application:
+The graph describes our application:
 
 ![application-graph-step-1](./doc/img/regrafxApplication-1.svg)
 
